@@ -8,6 +8,7 @@
     --font-display: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
     --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
+    --font-handwriting: 'Caveat', cursive;
 
     /* Theme Tokens - Default Dark (True Translucent Liquid Glass) */
     --bg-canvas: #05070c;
@@ -74,6 +75,10 @@
 
   code, pre, .font-mono {
     font-family: var(--font-mono);
+  }
+
+  .font-handwriting {
+    font-family: var(--font-handwriting);
   }
 }
 
