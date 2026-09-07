@@ -34,14 +34,10 @@ export const DesktopNavbar: React.FC<DesktopNavbarProps> = ({
     >
       <nav
         id="desktop-navbar-glass-container"
-        className={`relative overflow-hidden max-w-7xl mx-auto rounded-2xl transition-all duration-300 ${
+        className={`relative overflow-hidden max-w-7xl mx-auto rounded-2xl glass-specular transition-all duration-300 ${
           isScrolled
-            ? isLight
-              ? 'bg-white/70 backdrop-blur-2xl border border-slate-200/85 shadow-[0_12px_36px_-10px_rgba(15,23,42,0.1)] px-5 py-2.5'
-              : 'bg-[#080d1a]/65 backdrop-blur-2xl border border-white/[0.12] shadow-[0_16px_36px_-10px_rgba(0,0,0,0.7)] px-5 py-2.5'
-            : isLight
-            ? 'bg-white/55 backdrop-blur-xl border border-slate-200/60 shadow-xs px-5 py-3'
-            : 'bg-[#080d1a]/40 backdrop-blur-xl border border-white/[0.08] px-5 py-3'
+            ? 'glass-struct px-5 py-2.5'
+            : 'glass-float px-5 py-3'
         }`}
       >
         {/* Subtle Specular Top Highlight Line */}

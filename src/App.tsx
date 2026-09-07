@@ -47,23 +47,27 @@ const AppContent: React.FC = () => {
       >
         {isLight ? (
           <>
-            {/* Apple-Style Light Mode Ambient Refraction Glows */}
-            <div className="absolute -top-32 left-1/4 w-[650px] h-[650px] bg-sky-300/40 rounded-full blur-[140px]" />
-            <div className="absolute top-1/3 -right-20 w-[550px] h-[550px] bg-indigo-300/35 rounded-full blur-[140px]" />
-            <div className="absolute top-2/3 -left-20 w-[600px] h-[600px] bg-cyan-300/35 rounded-full blur-[150px]" />
-            <div className="absolute bottom-10 right-1/4 w-[550px] h-[550px] bg-blue-300/35 rounded-full blur-[140px]" />
-            {/* Soft grid texture visible through glass in light canvas */}
-            <div className="absolute inset-0 bg-[linear-gradient(to_right,#0f172a0d_1px,transparent_1px),linear-gradient(to_bottom,#0f172a0d_1px,transparent_1px)] bg-[size:48px_48px]" />
+            {/* Light ambient refraction blobs — vivid enough to bleed through white glass */}
+            <div className="absolute -top-32 left-1/4 w-[700px] h-[700px] bg-sky-300/50 rounded-full blur-[120px]" />
+            <div className="absolute top-1/3 -right-20 w-[600px] h-[600px] bg-indigo-300/42 rounded-full blur-[130px]" />
+            <div className="absolute top-[55%] -left-20 w-[650px] h-[650px] bg-cyan-300/45 rounded-full blur-[140px]" />
+            <div className="absolute bottom-10 right-1/4 w-[580px] h-[580px] bg-blue-300/42 rounded-full blur-[120px]" />
+            {/* Mid-page supplementary blob for glass refraction variety */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-violet-200/30 rounded-full blur-[160px]" />
+            {/* Fine dot grid — visible through glass */}
+            <div className="absolute inset-0 bg-[radial-gradient(circle,#0f172a18_1px,transparent_1px)] bg-[size:36px_36px]" />
           </>
         ) : (
           <>
-            {/* Deep Futuristic Dark Canvas Ambient Glows (Vibrant enough to refract through translucent glass) */}
-            <div className="absolute -top-40 left-1/4 w-[650px] h-[650px] bg-cyan-500/18 rounded-full blur-[140px]" />
-            <div className="absolute top-1/3 -right-20 w-[550px] h-[550px] bg-indigo-500/15 rounded-full blur-[140px]" />
-            <div className="absolute top-2/3 -left-20 w-[650px] h-[650px] bg-purple-500/14 rounded-full blur-[160px]" />
-            <div className="absolute bottom-10 right-1/4 w-[550px] h-[550px] bg-sky-500/16 rounded-full blur-[130px]" />
-            {/* Subtle grid texture visible through glass in dark canvas */}
-            <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:48px_48px]" />
+            {/* Dark ambient refraction blobs — vivid enough to glow through dark glass */}
+            <div className="absolute -top-40 left-1/4 w-[700px] h-[700px] bg-cyan-500/22 rounded-full blur-[130px]" />
+            <div className="absolute top-1/3 -right-20 w-[600px] h-[600px] bg-indigo-500/18 rounded-full blur-[130px]" />
+            <div className="absolute top-[55%] -left-20 w-[700px] h-[700px] bg-purple-500/17 rounded-full blur-[150px]" />
+            <div className="absolute bottom-10 right-1/4 w-[600px] h-[600px] bg-sky-500/20 rounded-full blur-[120px]" />
+            {/* Mid-page blob for depth */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] bg-blue-600/12 rounded-full blur-[180px]" />
+            {/* Fine dot grid visible through glass */}
+            <div className="absolute inset-0 bg-[radial-gradient(circle,#ffffff0b_1px,transparent_1px)] bg-[size:36px_36px]" />
           </>
         )}
       </div>

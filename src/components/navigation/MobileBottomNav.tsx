@@ -654,7 +654,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
           <div
             id="mobile-slider-active-pill"
             aria-hidden="true"
-            className={`absolute top-2.5 bottom-1.5 rounded-2xl pointer-events-none z-0 transition-transform duration-200 ${
+            className={`absolute top-1.5 bottom-1.5 rounded-2xl pointer-events-none z-0 transition-transform duration-200 ${
               isDragging ? 'scale-105 shadow-lg' : ''
             } ${
               isLight
@@ -680,7 +680,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
           </div>
 
           {/* Navigation Items Track (Grid of 5 items) */}
-          <div className="relative z-10 grid grid-cols-5 items-center gap-1">
+          <div className="relative z-10 grid grid-cols-5 items-center gap-0 w-full h-[52px]">
             {PRIMARY_NAV_ITEMS.map((item, index) => {
               const isTargetActive =
                 index === 4
@@ -698,7 +698,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
                   id={`mobile-nav-tab-${item.id}`}
                   type="button"
                   onClick={() => handleSelect(item.targetId)}
-                  className={`relative flex flex-col items-center justify-center py-2 px-1 min-h-[48px] rounded-2xl transition-all duration-200 cursor-pointer ${
+                  className={`relative flex flex-col items-center justify-center w-full h-full rounded-2xl transition-all duration-200 cursor-pointer ${
                     isItemVisualActive
                       ? isLight
                         ? 'text-sky-700'
@@ -715,9 +715,10 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
                   aria-current={isTargetActive ? 'page' : undefined}
                 >
                   {/* Icon with active glow */}
-                  <div className="relative">
+                  <div className="relative flex items-center justify-center w-6 h-6 shrink-0 mt-0.5">
                     <Icon
-                      className={`w-5 h-5 transition-transform duration-200 ${
+                      strokeWidth={2.2}
+                      className={`w-[22px] h-[22px] transition-transform duration-200 ${
                         isItemVisualActive
                           ? 'scale-110 drop-shadow-[0_0_8px_rgba(6,182,212,0.5)]'
                           : ''
@@ -726,7 +727,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
                     {/* Active dot for "More" item when a secondary section is active */}
                     {index === 4 && isMoreItemActive && !isMoreOpen && (
                       <span
-                        className={`absolute -top-0.5 -right-1 w-2 h-2 rounded-full ring-2 ${
+                        className={`absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full ring-2 ${
                           isLight
                             ? 'bg-sky-500 ring-white'
                             : 'bg-cyan-400 ring-[#070b14]'
@@ -737,7 +738,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
 
                   {/* Label */}
                   <span
-                    className={`text-[10px] tracking-tight mt-0.5 transition-all duration-200 whitespace-nowrap ${
+                    className={`text-[10px] leading-none tracking-tight mt-1 mb-0.5 transition-all duration-200 whitespace-nowrap text-center ${
                       isItemVisualActive ? 'font-bold' : 'font-medium'
                     }`}
                   >

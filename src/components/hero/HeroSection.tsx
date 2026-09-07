@@ -108,16 +108,15 @@ export const HeroSection: React.FC = () => {
               Hey, I'm
             </motion.span>
 
-            {/* Large Main Headline */}
+            {/* Large Main Headline — single unified color across the full name */}
             <motion.h1
               variants={itemVariants}
               id="hero-main-title"
-              className="text-5xl sm:text-6xl md:text-7xl lg:text-7.5xl font-extrabold tracking-tight leading-[1.05] mb-3"
+              className={`text-5xl sm:text-6xl md:text-7xl lg:text-7xl font-extrabold tracking-tight leading-[1.05] mb-3 ${
+                isLight ? 'text-slate-900' : 'text-white'
+              }`}
             >
-              <span className="text-slate-900 dark:text-white">Ved </span>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-600 via-cyan-500 to-indigo-600 dark:from-cyan-300 dark:via-sky-200 dark:to-indigo-300 drop-shadow-[0_0_25px_rgba(6,182,212,0.3)]">
-                Dhanokar
-              </span>
+              Ved Dhanokar
             </motion.h1>
 
             {/* Supporting Headline */}

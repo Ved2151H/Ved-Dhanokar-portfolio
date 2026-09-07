@@ -2,7 +2,21 @@ import React from 'react';
 
 export interface GlassCardProps extends React.HTMLAttributes<HTMLDivElement> {
   id?: string;
+  /**
+   * Material tier:
+   *  primary   → Glass 3 (Structural) — nav, hero frame, modal
+   *  secondary → Glass 2 (Surface)    — project/experience/skill cards
+   *  tertiary  → Glass 1 (Floating)   — badges, small pills
+   */
   material?: 'primary' | 'secondary' | 'tertiary';
+  /**
+   * Semantic variant aliases (mapped to tiers):
+   *  default     → Surface glass
+   *  subtle      → Floating glass
+   *  interactive → Surface glass + hover lift
+   *  elevated    → Structural glass
+   *  glow        → Surface glass + accent border
+   */
   variant?: 'default' | 'subtle' | 'interactive' | 'elevated' | 'glow';
   accent?: 'cyan' | 'purple' | 'blue' | 'none';
   specular?: boolean;
@@ -20,67 +34,75 @@ export const GlassCard: React.FC<GlassCardProps> = ({
   children,
   ...props
 }) => {
-  const getMaterialOrVariantStyles = () => {
-    // If explicit material is given, apply material tier
+  // ── Material tier styles ────────────────────────────────────────────
+  // All use CSS-variable-driven backgrounds defined in index.css so
+  // dark/light themes automatically pick the correct alpha value.
+  const getMaterialStyles = (): string => {
     if (material === 'primary') {
-      return 'bg-slate-900/40 dark:bg-slate-900/40 bg-white/70 backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.12] shadow-[0_16px_40px_-10px_rgba(15,23,42,0.08)] dark:shadow-[0_20px_50px_-10px_rgba(0,0,0,0.7)]';
-    }
-    if (material === 'secondary') {
-      return 'bg-white/55 dark:bg-slate-900/30 backdrop-blur-md border border-slate-200/70 dark:border-white/[0.08] shadow-sm dark:shadow-[0_10px_30px_rgba(0,0,0,0.35)]';
+      // Glass 3 — Structural
+      return 'glass-struct glass-specular';
     }
     if (material === 'tertiary') {
-      return 'bg-white/45 dark:bg-white/[0.04] backdrop-blur-sm border border-slate-200/50 dark:border-white/[0.06] shadow-xs dark:shadow-none';
+      // Glass 1 — Floating / highest transparency
+      return 'glass-float glass-specular';
     }
 
-    // Otherwise apply semantic variant mapped to Liquid Glass tiers
+    // material === 'secondary' OR no material (use variant)
     switch (variant) {
       case 'subtle':
-        // Tertiary glass
-        return 'bg-white/45 dark:bg-white/[0.03] backdrop-blur-sm border border-slate-200/50 dark:border-white/[0.05] shadow-xs';
-      case 'interactive':
-        // Interactive Secondary glass with physical spring hover
-        return 'bg-white/55 hover:bg-white/75 dark:bg-slate-900/28 dark:hover:bg-slate-900/45 backdrop-blur-md border border-slate-200/70 hover:border-sky-400/50 dark:border-white/[0.08] dark:hover:border-cyan-400/45 transition-all duration-300 shadow-sm hover:shadow-[0_14px_36px_-8px_rgba(2,132,199,0.16)] dark:shadow-[0_8px_25px_rgba(0,0,0,0.4)] dark:hover:shadow-[0_14px_40px_-8px_rgba(6,182,212,0.25)] hover:-translate-y-1';
+        return 'glass-float glass-specular';
+
       case 'elevated':
-        // Primary glass for prominent focal surfaces
-        return 'bg-white/70 dark:bg-slate-900/45 backdrop-blur-xl border border-white/90 dark:border-white/[0.12] shadow-[0_20px_45px_-10px_rgba(15,23,42,0.08)] dark:shadow-[0_20px_50px_-10px_rgba(0,0,0,0.7)]';
+        return 'glass-struct glass-specular';
+
+      case 'interactive':
+        // Surface glass + interactive hover physics
+        return 'glass-surface glass-interactive glass-specular';
+
       case 'glow':
-        // Accented Secondary glass
-        return 'bg-white/60 dark:bg-slate-900/35 backdrop-blur-md border border-sky-400/50 dark:border-cyan-500/35 shadow-[0_12px_35px_-5px_rgba(2,132,199,0.18)] dark:shadow-[0_0_35px_-5px_rgba(6,182,212,0.22)]';
+        // Surface glass + accent glow border
+        return [
+          'glass-surface glass-specular',
+          // accent border + glow shadow (both themes via CSS variable accent)
+          'border-[color:var(--glass-hover-border)]',
+          'shadow-[0_12px_35px_-5px_var(--accent-glow)]',
+        ].join(' ');
+
       case 'default':
       default:
-        // Secondary glass
-        return 'bg-white/55 dark:bg-slate-900/30 backdrop-blur-md border border-slate-200/70 dark:border-white/[0.08] shadow-sm dark:shadow-[0_10px_30px_rgba(0,0,0,0.35)]';
+        return 'glass-surface glass-specular';
     }
   };
 
-  const getAccentStyles = () => {
-    switch (accent) {
-      case 'cyan':
-        return 'before:absolute before:inset-0 before:bg-radial-cyan before:opacity-10 before:pointer-events-none';
-      case 'purple':
-        return 'before:absolute before:inset-0 before:bg-radial-purple before:opacity-10 before:pointer-events-none';
-      case 'blue':
-        return 'before:absolute before:inset-0 before:bg-radial-blue before:opacity-10 before:pointer-events-none';
-      case 'none':
-      default:
-        return '';
-    }
+  // ── Accent ambient overlay ──────────────────────────────────────────
+  const getAccentOverlay = (): string => {
+    if (accent === 'none') return '';
+    const colorMap = {
+      cyan:   'rgba(6,182,212,0.06)',
+      blue:   'rgba(59,130,246,0.06)',
+      purple: 'rgba(139,92,246,0.06)',
+    };
+    return colorMap[accent] ? `[--accent-overlay:${colorMap[accent]}]` : '';
   };
 
   return (
     <div
       id={id}
-      className={`relative rounded-2xl overflow-hidden glass-card-${variant} ${getMaterialOrVariantStyles()} ${getAccentStyles()} ${className}`}
+      className={`relative rounded-2xl overflow-hidden glass-card-${variant} ${getMaterialStyles()} ${getAccentOverlay()} ${className}`}
       {...props}
     >
-      {specular && (
+      {/* Accent ambient radial behind content — only when accent is set */}
+      {accent !== 'none' && (
         <div
           aria-hidden="true"
-          className="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-white/80 dark:via-white/20 to-transparent pointer-events-none"
+          className={`absolute inset-0 pointer-events-none z-0 rounded-2xl ${
+            accent === 'cyan'   ? 'ambient-glow-cyan'   :
+            accent === 'blue'   ? 'ambient-glow-blue'   :
+            accent === 'purple' ? 'ambient-glow-purple'  : ''
+          }`}
         />
       )}
       {children}
     </div>
   );
 };
-
