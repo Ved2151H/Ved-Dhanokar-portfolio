@@ -254,6 +254,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
       if (Math.abs(deltaX) > 6 && Math.abs(deltaX) > Math.abs(deltaY) * 1.2) {
         dragStartRef.current.hasExceededThreshold = true;
         setIsDragging(true);
+        window.dispatchEvent(new CustomEvent('portfolio:navigation-drag', { detail: true }));
 
         try {
           (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
@@ -325,6 +326,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
 
     dragStartRef.current = null;
     setIsDragging(false);
+    window.dispatchEvent(new CustomEvent('portfolio:navigation-drag', { detail: false }));
     setDragProgressIndex(null);
     setReflectionPos(null);
 
@@ -354,6 +356,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
     }
     dragStartRef.current = null;
     setIsDragging(false);
+    window.dispatchEvent(new CustomEvent('portfolio:navigation-drag', { detail: false }));
     setDragProgressIndex(null);
     setReflectionPos(null);
     updatePillPosition(currentActiveIndex);
@@ -682,9 +685,9 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
                 index === 4
                   ? isMoreOpen || isMoreItemActive
                   : activeSection === item.targetId;
-              const isCurrentlyHoveredOrDragged =
-                isDragging && dragProgressIndex !== null && Math.round(dragProgressIndex) === index;
-              const isItemVisualActive = isTargetActive || isCurrentlyHoveredOrDragged;
+              // Dragging only moves the pill. Keep the selected item active
+              // until release so intermediate destinations never flash.
+              const isItemVisualActive = isTargetActive;
               const Icon = item.icon;
 
               return (

@@ -166,6 +166,7 @@ export const DraggableNavSlider: React.FC<DraggableNavSliderProps> = ({
         if (Math.abs(deltaX) > 6) {
           drag.hasExceededThreshold = true;
           setIsDragging(true);
+          window.dispatchEvent(new CustomEvent('portfolio:navigation-drag', { detail: true }));
         } else if (Math.abs(deltaY) > 10 && Math.abs(deltaY) > Math.abs(deltaX)) {
           // User is attempting vertical page scroll, cancel horizontal hijack
           dragStartRef.current = null;
@@ -225,6 +226,7 @@ export const DraggableNavSlider: React.FC<DraggableNavSliderProps> = ({
         // Smoothly snap to final section
         setDragProgressIndex(null);
         setIsDragging(false);
+        window.dispatchEvent(new CustomEvent('portfolio:navigation-drag', { detail: false }));
         updatePillPosition(snappedIndex);
 
         if (targetItem) {
@@ -234,6 +236,7 @@ export const DraggableNavSlider: React.FC<DraggableNavSliderProps> = ({
         // Was a simple click/tap - reset dragging states
         setIsDragging(false);
         setDragProgressIndex(null);
+        window.dispatchEvent(new CustomEvent('portfolio:navigation-drag', { detail: false }));
       }
 
       dragStartRef.current = null;
@@ -282,8 +285,9 @@ export const DraggableNavSlider: React.FC<DraggableNavSliderProps> = ({
     onSelectSection(item.id);
   };
 
-  const displayedActiveIndex =
-    isDragging && dragProgressIndex !== null ? Math.round(dragProgressIndex) : currentActiveIndex;
+  // Keep logical active state stable during a drag. The pill may cross every
+  // item visually, but intermediate buttons must never become active.
+  const displayedActiveIndex = currentActiveIndex;
 
   return (
     <div

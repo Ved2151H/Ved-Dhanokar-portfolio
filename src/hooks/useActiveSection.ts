@@ -4,10 +4,17 @@ export function useActiveSection(sectionIds: string[], defaultId = 'hero') {
   const [activeSection, setActiveSection] = useState(defaultId);
 
   useEffect(() => {
+    let navigationDragging = false;
+    const handleNavigationDrag = (event: Event) => {
+      navigationDragging = (event as CustomEvent<boolean>).detail;
+    };
+    window.addEventListener('portfolio:navigation-drag', handleNavigationDrag);
+
     // If IntersectionObserver is available, use it for performant viewport tracking
     const observerCallback: IntersectionObserverCallback = (entries) => {
       // Find the entry that has the largest intersection ratio or is most in view
       const visibleEntries = entries.filter((entry) => entry.isIntersecting);
+      if (navigationDragging) return;
       if (visibleEntries.length > 0) {
         // Sort by intersection ratio descending
         visibleEntries.sort((a, b) => b.intersectionRatio - a.intersectionRatio);
@@ -31,6 +38,7 @@ export function useActiveSection(sectionIds: string[], defaultId = 'hero') {
 
     // Fallback and bottom-of-page scroll listener
     const handleScroll = () => {
+      if (navigationDragging) return;
       // Check bottom of page
       const isAtBottom =
         window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 80;
@@ -66,6 +74,7 @@ export function useActiveSection(sectionIds: string[], defaultId = 'hero') {
     return () => {
       observer.disconnect();
       window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('portfolio:navigation-drag', handleNavigationDrag);
     };
   }, [sectionIds, defaultId]);
 
