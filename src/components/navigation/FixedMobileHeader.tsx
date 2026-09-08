@@ -53,11 +53,7 @@ export const FixedMobileHeader: React.FC<FixedMobileHeaderProps> = ({
       {/* Floating Liquid Glass Surface */}
       <div
         id="fixed-mobile-header-glass"
-        className={`relative overflow-hidden rounded-2xl px-3 sm:px-3.5 py-2 sm:py-2.5 transition-colors duration-300 ${
-          isLight
-            ? 'bg-white/70 border border-slate-200/85 shadow-[0_12px_36px_-6px_rgba(15,23,42,0.12)]'
-            : 'bg-[#080d1a]/65 border border-white/[0.12] shadow-[0_16px_40px_-8px_rgba(0,0,0,0.8),0_0_24px_rgba(6,182,212,0.14)]'
-        }`}
+        className="relative overflow-hidden rounded-2xl px-3 sm:px-3.5 py-2 sm:py-2.5 glass-struct glass-specular glass-mobile-surface"
         style={{
           backdropFilter: 'blur(24px) saturate(160%)',
           WebkitBackdropFilter: 'blur(24px) saturate(160%)',

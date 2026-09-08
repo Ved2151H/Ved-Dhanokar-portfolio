@@ -599,11 +599,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
           onPointerMove={handlePointerMove}
           onPointerUp={handlePointerUp}
           onPointerCancel={handlePointerCancel}
-          className={`relative rounded-3xl p-1.5 transition-colors duration-300 cursor-grab active:cursor-grabbing touch-none ${
-            isLight
-              ? 'bg-white/70 border border-slate-200/85 shadow-[0_12px_36px_-6px_rgba(15,23,42,0.12)]'
-              : 'bg-[#080d1a]/65 border border-white/[0.12] shadow-[0_16px_40px_-8px_rgba(0,0,0,0.8),0_0_24px_rgba(6,182,212,0.14)]'
-          }`}
+          className="relative rounded-3xl p-1.5 glass-struct glass-specular glass-mobile-surface cursor-grab active:cursor-grabbing touch-none"
           style={{
             backdropFilter: 'blur(24px) saturate(160%)',
             WebkitBackdropFilter: 'blur(24px) saturate(160%)',
@@ -658,8 +654,8 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
               isDragging ? 'scale-105 shadow-lg' : ''
             } ${
               isLight
-                ? 'bg-gradient-to-b from-white/95 to-sky-50/90 border border-sky-300/80 shadow-[0_4px_18px_rgba(2,132,199,0.18)]'
-                : 'bg-gradient-to-b from-cyan-400/22 to-blue-500/16 border border-cyan-400/45 shadow-[0_0_20px_rgba(6,182,212,0.35)]'
+                ? 'bg-white/45 border border-sky-300/65 shadow-[0_4px_18px_rgba(2,132,199,0.14)]'
+                : 'bg-cyan-400/12 border border-cyan-400/35 shadow-[0_0_20px_rgba(6,182,212,0.24)]'
             }`}
             style={{
               left: `${pillStyle.left}px`,
