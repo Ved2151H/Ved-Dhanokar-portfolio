@@ -126,18 +126,6 @@
     text-rendering: optimizeLegibility;
   }
 
-  /* Text nodes need their own compositing layer ABOVE any backdrop-filter
-     parent so they render at full native resolution */
-  p, span, h1, h2, h3, h4, h5, h6, a, li, label, button, input,
-  textarea, td, th, caption, blockquote, figcaption, dt, dd {
-    /* Isolate text from parent's filter/transform compositing context */
-    isolation: isolate;
-    /* Snap to pixel grid */
-    transform: translateZ(0);
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-  }
-
   body {
     font-family: var(--font-body);
     background-color: var(--bg-canvas);
