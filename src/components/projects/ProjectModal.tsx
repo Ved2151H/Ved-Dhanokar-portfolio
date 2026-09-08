@@ -4,6 +4,7 @@ import { Project } from '../../types/portfolio';
 import { GlassModal } from '../primitives/GlassModal';
 import { GlassButton } from '../primitives/GlassButton';
 import { GlassPill } from '../primitives/GlassPill';
+import { profileData } from '../../data/profile';
 
 export interface ProjectModalProps {
   project: Project | null;
@@ -117,7 +118,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
               size="sm"
               icon={<Github className="w-4 h-4" />}
               asAnchor
-              href="https://github.com/veddhanokar"
+              href={profileData.socials.github}
               target="_blank"
               rel="noopener noreferrer"
             >

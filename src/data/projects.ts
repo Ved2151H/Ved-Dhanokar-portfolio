@@ -32,6 +32,7 @@ export const projectsData: Project[] = [
     ],
     category: 'Computer Vision & AI',
     isFeatured: true,
+    githubUrl: 'https://github.com/Ved2151H/accident_detection_System',
   },
   {
     id: 'zero-ui-emergency-system',
@@ -63,6 +64,7 @@ export const projectsData: Project[] = [
     ],
     category: 'Sensors & IoT',
     isFeatured: false,
+    githubUrl: 'https://github.com/Ved2151H/ZeroUi_anomaly-detection_system',
   },
   {
     id: 'documind-ai',
@@ -94,6 +96,7 @@ export const projectsData: Project[] = [
     ],
     category: 'GenAI & RAG',
     isFeatured: false,
+    githubUrl: 'https://github.com/Ved2151H/DocuMind_AI_using_-Ollama',
   },
   {
     id: 'karma-ecommerce',
@@ -126,6 +129,7 @@ export const projectsData: Project[] = [
     ],
     category: 'Full-Stack MERN',
     isFeatured: false,
+    githubUrl: 'https://github.com/Ved2151H/Karma_Web',
   },
   {
     id: 'multi-firm-management',
@@ -157,5 +161,6 @@ export const projectsData: Project[] = [
     ],
     category: 'Enterprise Multi-Tenant',
     isFeatured: false,
+    githubUrl: 'https://github.com/Ved2151H/PetrolPumpAttendance',
   },
 ];

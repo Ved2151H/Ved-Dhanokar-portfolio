@@ -13,13 +13,13 @@ import { GlassCard } from '../primitives/GlassCard';
 import { GlassButton } from '../primitives/GlassButton';
 import { GlassContainer } from '../primitives/GlassContainer';
 import { useTheme } from '../../context/ThemeContext';
+import { profileData } from '../../data/profile';
 
 export const AboutSection: React.FC = () => {
   const { isLight } = useTheme();
 
   const handleDownloadResume = () => {
-    // In production, this can link to a real PDF or trigger print/preview
-    window.open('https://linkedin.com/in/ved-dhanokar-3b9970348', '_blank');
+    window.open(profileData.socials.linkedin, '_blank', 'noopener,noreferrer');
   };
 
   return (

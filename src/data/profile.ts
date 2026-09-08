@@ -11,11 +11,11 @@ export const profileData: Profile = {
   institution: 'IICT, MGM University',
   period: '2023 – 2027',
   cgpa: '8.45',
-  email: 'veddhanokat@gmail.com',
+  email: 'dhanokarved@gmail.com',
   socials: {
-    github: 'https://github.com/veddhanokar',
-    linkedin: 'https://linkedin.com/in/veddhanokar',
-    leetcode: 'https://leetcode.com/u/veddhanokar',
-    email: 'mailto:veddhanokat@gmail.com',
+    github: 'https://github.com/Ved2151H',
+    linkedin: 'https://www.linkedin.com/in/ved-dhanokar-b0351029b/',
+    leetcode: 'https://leetcode.com/u/Ved_Dhanokar/',
+    email: 'mailto:dhanokarved@gmail.com',
   },
 };

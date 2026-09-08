@@ -551,7 +551,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
                     if (heroResumeBtn) {
                       heroResumeBtn.click();
                     } else {
-                      window.open('https://github.com/veddhanokar', '_blank');
+                      window.open(profileData.socials.github, '_blank', 'noopener,noreferrer');
                     }
                   }}
                   className={`flex-1 inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl text-xs font-semibold transition-all ${
