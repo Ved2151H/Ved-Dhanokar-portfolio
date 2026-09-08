@@ -546,17 +546,9 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
               <div className="p-3 bg-black/[0.02] dark:bg-white/[0.02] border-t border-black/[0.06] dark:border-white/[0.06] flex items-center justify-between gap-2">
                 <a
                   id="mobile-more-resume-btn"
-                  href="#hero"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setIsMoreOpen(false);
-                    const heroResumeBtn = document.getElementById('hero-download-resume-btn');
-                    if (heroResumeBtn) {
-                      heroResumeBtn.click();
-                    } else {
-                      window.open(profileData.socials.github, '_blank', 'noopener,noreferrer');
-                    }
-                  }}
+                  href="/Ved_Dhanokar_Resume1.pdf"
+                  download="Ved_Dhanokar_Resume1.pdf"
+                  onClick={() => setIsMoreOpen(false)}
                   className={`flex-1 inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl text-xs font-semibold transition-all ${
                     isLight
                       ? 'bg-sky-600 hover:bg-sky-700 text-white shadow-sm'

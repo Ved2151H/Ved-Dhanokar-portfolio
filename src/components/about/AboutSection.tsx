@@ -13,13 +13,17 @@ import { GlassCard } from '../primitives/GlassCard';
 import { GlassButton } from '../primitives/GlassButton';
 import { GlassContainer } from '../primitives/GlassContainer';
 import { useTheme } from '../../context/ThemeContext';
-import { profileData } from '../../data/profile';
 
 export const AboutSection: React.FC = () => {
   const { isLight } = useTheme();
 
   const handleDownloadResume = () => {
-    window.open(profileData.socials.linkedin, '_blank', 'noopener,noreferrer');
+    const link = document.createElement('a');
+    link.href = '/Ved_Dhanokar_Resume1.pdf';
+    link.download = 'Ved_Dhanokar_Resume1.pdf';
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
   };
 
   return (
