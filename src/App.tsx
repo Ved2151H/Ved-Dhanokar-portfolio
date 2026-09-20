@@ -6,8 +6,7 @@
 
 import React from 'react';
 import { ThemeProvider, useTheme } from './context/ThemeContext';
-import { FixedMobileHeader } from './components/navigation/FixedMobileHeader';
-import { DesktopNavbar } from './components/navigation/DesktopNavbar';
+import { FloatingNavbar } from './components/navigation/FloatingNavbar';
 import { MobileBottomNav } from './components/navigation/MobileBottomNav';
 import { NAV_ITEMS } from './constants/navigation';
 import { useActiveSection } from './hooks/useActiveSection';
@@ -39,19 +38,16 @@ const AppContent: React.FC = () => {
           : 'bg-[#05070c] text-neutral-100 selection:bg-slate-800 selection:text-neutral-200'
       }`}
     >
-      {/* 1. FIXED VIEWPORT COMPONENT: Mobile Top Header (Always stationary at top of screen) */}
-      <FixedMobileHeader onSelectSection={scrollToId} />
+      {/* 1. FLOATING NAVBAR: Desktop pill that shrinks on scroll + mobile hamburger menu (fixed at top) */}
+      <FloatingNavbar activeSection={activeSection} onSelectSection={scrollToId} />
 
-      {/* 2. FIXED VIEWPORT COMPONENT: Desktop Top Navigation Bar (Always stationary on desktop) */}
-      <DesktopNavbar activeSection={activeSection} onSelectSection={scrollToId} />
-
-      {/* 3. SCROLLABLE PORTFOLIO CONTENT (Scrolls continuously underneath both fixed headers) */}
+      {/* 2. SCROLLABLE PORTFOLIO CONTENT (Scrolls continuously underneath the floating navbar) */}
       <div id="scrollable-portfolio-content" className="relative z-10">
         <HomeScreen />
         <Footer />
       </div>
 
-      {/* 4. FIXED VIEWPORT COMPONENT: Mobile Bottom Navigation Dock (Always stationary at bottom of screen) */}
+      {/* 3. FIXED VIEWPORT COMPONENT: Mobile Bottom Navigation Dock (Always stationary at bottom of screen) */}
       <MobileBottomNav activeSection={activeSection} onSelectSection={scrollToId} />
     </div>
   );

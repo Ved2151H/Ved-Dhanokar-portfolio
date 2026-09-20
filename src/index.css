@@ -3,6 +3,11 @@
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 @custom-variant light (&:where([data-theme=light], [data-theme=light] *));
 
+@theme {
+  /* Extended radius scale (used by the footer's md:rounded-t-6xl) */
+  --radius-6xl: 3rem;
+}
+
 @layer base {
   :root {
     --font-display: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;

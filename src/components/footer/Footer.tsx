@@ -1,107 +1,134 @@
 import React from 'react';
+import type { ComponentProps, ReactNode } from 'react';
+import { motion, useReducedMotion } from 'motion/react';
+import { Code2Icon, FrameIcon, GithubIcon, LinkedinIcon, MailIcon } from 'lucide-react';
 import { profileData } from '../../data/profile';
 
-// Re-write Footer: remove Terminal icon, specular lines, gradient backgrounds
-export const Footer: React.FC = () => {
-  const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+interface FooterLink {
+	title: string;
+	href: string;
+	icon?: React.ComponentType<{ className?: string }>;
+}
 
-  const scrollTo = (href: string) => {
-    const id = href.replace('#', '');
-    const el = document.getElementById(id);
-    if (el) {
-      const top = el.getBoundingClientRect().top + window.scrollY - 80;
-      window.scrollTo({ top, behavior: 'smooth' });
-    }
-  };
+interface FooterSection {
+	label: string;
+	links: FooterLink[];
+}
 
-  const navLinks = [
-    { label: 'About', id: '#about' },
-    { label: 'Experience', id: '#experience' },
-    { label: 'Skills', id: '#skills' },
-    { label: 'Projects', id: '#projects' },
-    { label: 'Education', id: '#education' },
-    { label: 'Certifications', id: '#certifications' },
-    { label: 'Achievements', id: '#achievements' },
-    { label: 'Contact', id: '#contact' },
-  ];
+const footerLinks: FooterSection[] = [
+	{
+		label: 'Navigate',
+		links: [
+			{ title: 'About', href: '#about' },
+			{ title: 'Experience', href: '#experience' },
+			{ title: 'Skills', href: '#skills' },
+			{ title: 'Projects', href: '#projects' },
+		],
+	},
+	{
+		label: 'More',
+		links: [
+			{ title: 'Education', href: '#education' },
+			{ title: 'Certifications', href: '#certifications' },
+			{ title: 'Achievements', href: '#achievements' },
+			{ title: 'Contact', href: '#contact' },
+		],
+	},
+	{
+		label: 'Social Links',
+		links: [
+			{ title: 'GitHub', href: profileData.socials.github, icon: GithubIcon },
+			{ title: 'LinkedIn', href: profileData.socials.linkedin, icon: LinkedinIcon },
+			{ title: 'LeetCode', href: profileData.socials.leetcode, icon: Code2Icon },
+			{ title: 'Email', href: profileData.socials.email, icon: MailIcon },
+		],
+	},
+];
 
-  return (
-    <footer
-      id="portfolio-footer"
-      className="relative border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 pt-14 pb-[calc(6rem+env(safe-area-inset-bottom,0px))] md:pb-12"
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 pb-10 border-b border-slate-200 dark:border-slate-800">
-          {/* Brand */}
-          <div className="md:col-span-6 space-y-4">
-            <div>
-              <h3 className="font-bold text-lg text-slate-900 dark:text-white">
-                {profileData.displayName}
-              </h3>
-              <p className="text-sm text-slate-600 dark:text-neutral-400 font-medium mt-0.5">
-                {profileData.subheadline}
-              </p>
-            </div>
+export function Footer() {
+	const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+		if (href.startsWith('#')) {
+			e.preventDefault();
+			const el = document.getElementById(href.slice(1));
+			if (el) {
+				const top = el.getBoundingClientRect().top + window.scrollY - 70;
+				window.scrollTo({ top, behavior: 'smooth' });
+			}
+		}
+	};
 
-            <p className="text-sm text-slate-500 dark:text-neutral-500 max-w-sm leading-relaxed">
-              Building scalable full-stack software architectures with modern computer vision, deep neural networks, and generative AI.
-            </p>
+	return (
+		<footer
+			id="portfolio-footer"
+			className="md:rounded-t-6xl relative w-full max-w-6xl mx-auto flex flex-col items-center justify-center rounded-t-4xl border-t border-slate-200 bg-slate-50 bg-[radial-gradient(35%_128px_at_50%_0%,rgba(15,23,42,0.05),transparent)] px-6 pt-12 pb-[calc(6rem+env(safe-area-inset-bottom,0px))] lg:pt-16 md:pb-12 dark:border-slate-800 dark:bg-[#080c16] dark:bg-[radial-gradient(35%_128px_at_50%_0%,rgba(255,255,255,0.08),transparent)]"
+		>
+			<div className="bg-slate-900/20 dark:bg-white/20 absolute top-0 right-1/2 left-1/2 h-px w-1/3 -translate-x-1/2 -translate-y-1/2 rounded-full blur" />
 
-            <div className="flex items-center gap-4 pt-1 text-sm font-medium">
-              <a href={profileData.socials.github} target="_blank" rel="noopener noreferrer" className="text-slate-600 hover:text-slate-900 dark:text-neutral-400 dark:hover:text-white transition-colors">
-                GitHub
-              </a>
-              <a href={profileData.socials.linkedin} target="_blank" rel="noopener noreferrer" className="text-slate-600 hover:text-slate-900 dark:text-neutral-400 dark:hover:text-white transition-colors">
-                LinkedIn
-              </a>
-              <a href={profileData.socials.leetcode} target="_blank" rel="noopener noreferrer" className="text-slate-600 hover:text-slate-900 dark:text-neutral-400 dark:hover:text-white transition-colors">
-                LeetCode
-              </a>
-              <a href={profileData.socials.email} className="text-slate-600 hover:text-slate-900 dark:text-neutral-400 dark:hover:text-white transition-colors">
-                Email
-              </a>
-            </div>
-          </div>
+			<div className="grid w-full gap-8 xl:grid-cols-3 xl:gap-8">
+				<AnimatedContainer className="space-y-4">
+					<FrameIcon className="size-8" />
+					<p className="text-slate-600 dark:text-neutral-400 mt-8 text-sm md:mt-0">
+						© {new Date().getFullYear()} {profileData.displayName}. All rights reserved.
+					</p>
+				</AnimatedContainer>
 
-          {/* Navigation */}
-          <div className="md:col-span-4">
-            <span className="text-xs font-mono text-slate-500 dark:text-neutral-500 uppercase tracking-wider block mb-3">
-              Navigation
-            </span>
-            <div className="grid grid-cols-2 gap-y-2 gap-x-4 text-sm">
-              {navLinks.map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => scrollTo(item.id)}
-                  className="text-left text-slate-600 dark:text-neutral-400 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer"
-                >
-                  {item.label}
-                </button>
-              ))}
-            </div>
-          </div>
+				<div className="mt-10 grid w-full grid-cols-2 gap-8 md:grid-cols-4 xl:col-span-2 xl:mt-0">
+					{footerLinks.map((section, index) => (
+						<AnimatedContainer key={section.label} delay={0.1 + index * 0.1}>
+							<div className="mb-10 md:mb-0">
+								<h3 className="text-xs font-mono uppercase tracking-wider text-slate-500 dark:text-neutral-500">
+									{section.label}
+								</h3>
+								<ul className="text-slate-600 dark:text-neutral-400 mt-4 space-y-2 text-sm">
+									{section.links.map((link) => {
+										const isExternal = link.href.startsWith('http');
+										return (
+											<li key={link.title}>
+												<a
+													href={link.href}
+													onClick={(e) => handleLinkClick(e, link.href)}
+													target={isExternal ? '_blank' : undefined}
+													rel={isExternal ? 'noopener noreferrer' : undefined}
+													className="hover:text-slate-900 dark:hover:text-white inline-flex items-center transition-all duration-300"
+												>
+													{link.icon && <link.icon className="me-1 size-4" />}
+													{link.title}
+												</a>
+											</li>
+										);
+									})}
+								</ul>
+							</div>
+						</AnimatedContainer>
+					))}
+				</div>
+			</div>
+		</footer>
+	);
+}
 
-          {/* Back to top */}
-          <div className="md:col-span-2 flex md:justify-end items-start">
-            <button
-              id="footer-back-to-top"
-              onClick={scrollToTop}
-              className="text-sm font-medium text-slate-600 dark:text-neutral-400 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer"
-            >
-              Back to top
-            </button>
-          </div>
-        </div>
-
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 dark:text-neutral-500 font-mono">
-          <p>© 2026 Ved Dhanokar. All rights reserved.</p>
-          <div className="flex items-center gap-4">
-            <span>IICT, MGM University</span>
-            <span>·</span>
-            <span>B.Tech IT (2023-2027)</span>
-          </div>
-        </div>
-      </div>
-    </footer>
-  );
+type ViewAnimationProps = {
+	delay?: number;
+	className?: ComponentProps<typeof motion.div>['className'];
+	children: ReactNode;
 };
+
+const AnimatedContainer: React.FC<ViewAnimationProps> = ({ className, delay = 0.1, children }) => {
+	const shouldReduceMotion = useReducedMotion();
+
+	if (shouldReduceMotion) {
+		return children;
+	}
+
+	return (
+		<motion.div
+			initial={{ filter: 'blur(4px)', translateY: -8, opacity: 0 }}
+			whileInView={{ filter: 'blur(0px)', translateY: 0, opacity: 1 }}
+			viewport={{ once: true }}
+			transition={{ delay, duration: 0.8 }}
+			className={className}
+		>
+			{children}
+		</motion.div>
+	);
+}
