@@ -391,14 +391,13 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 25, scale: 0.97 }}
               transition={{ type: 'spring', damping: 28, stiffness: 350 }}
-              className={`md:hidden fixed bottom-[calc(4.75rem+env(safe-area-inset-bottom,0px))] inset-x-3 sm:inset-x-6 mx-auto max-w-md z-50 rounded-3xl overflow-hidden shadow-2xl transition-colors duration-300 ${
+              className={`md:hidden fixed bottom-[calc(4.75rem+env(safe-area-inset-bottom,0px))] inset-x-3 sm:inset-x-6 mx-auto max-w-md z-50 rounded-xl overflow-hidden transition-colors duration-300 ${
                 isLight
-                  ? 'bg-white/80 text-slate-900 border border-slate-200/90 shadow-[0_24px_50px_-12px_rgba(15,23,42,0.18)]'
-                  : 'bg-[#0a0f1e]/80 text-white border border-white/[0.14] shadow-[0_24px_50px_-12px_rgba(0,0,0,0.85),0_0_30px_rgba(6,182,212,0.14)]'
+                  ? 'bg-white text-slate-900 border border-slate-200 shadow-lg'
+                  : 'bg-slate-950/95 text-white border border-slate-800 shadow-lg'
               }`}
               style={{
-                backdropFilter: 'blur(24px) saturate(160%)',
-                WebkitBackdropFilter: 'blur(24px) saturate(160%)',
+                
               }}
             >
               {/* Specular Top Glimmer Line */}
@@ -463,8 +462,8 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
                       className={`w-full p-3 rounded-2xl flex items-center justify-between transition-all duration-200 cursor-pointer text-left active:scale-[0.98] ${
                         isActive
                           ? isLight
-                            ? 'bg-sky-50/90 border border-sky-300/90 shadow-sm'
-                            : 'bg-cyan-500/15 border border-cyan-500/40 shadow-[0_0_15px_rgba(6,182,212,0.15)]'
+                            ? 'bg-slate-50 border border-slate-300'
+                            : 'bg-cyan-500/15 border border-cyan-500/40 '
                           : isLight
                           ? 'bg-white/50 hover:bg-white/80 border border-slate-200/60'
                           : 'bg-white/[0.03] hover:bg-white/[0.07] border border-white/[0.05]'
@@ -475,8 +474,8 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
                           className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 transition-colors ${
                             isActive
                               ? isLight
-                                ? 'bg-sky-600 text-white shadow-sm'
-                                : 'bg-cyan-400 text-slate-950 shadow-[0_0_12px_rgba(6,182,212,0.5)]'
+                                ? 'bg-slate-900 text-white'
+                                : 'bg-slate-900 text-white'
                               : isLight
                               ? 'bg-white text-slate-700 border border-slate-200 shadow-xs'
                               : 'bg-white/[0.06] text-neutral-300 border border-white/[0.08]'
@@ -491,8 +490,8 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
                               className={`text-sm font-bold tracking-tight truncate ${
                                 isActive
                                   ? isLight
-                                    ? 'text-sky-700'
-                                    : 'text-cyan-300'
+                                    ? 'text-slate-900'
+                                    : 'text-white'
                                   : isLight
                                   ? 'text-slate-800'
                                   : 'text-neutral-200'
@@ -552,7 +551,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
                   className={`flex-1 inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl text-xs font-semibold transition-all ${
                     isLight
                       ? 'bg-sky-600 hover:bg-sky-700 text-white shadow-sm'
-                      : 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-[0_0_15px_rgba(6,182,212,0.3)]'
+                      : 'bg-slate-900 text-white'
                   }`}
                 >
                   <FileText className="w-3.5 h-3.5" />
@@ -596,17 +595,9 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
           onPointerCancel={handlePointerCancel}
           className="relative rounded-3xl p-1.5 glass-struct glass-specular glass-mobile-surface cursor-grab active:cursor-grabbing touch-none"
           style={{
-            backdropFilter: 'blur(24px) saturate(160%)',
-            WebkitBackdropFilter: 'blur(24px) saturate(160%)',
+            
           }}
         >
-          {/* Subtle Specular Top Highlight Rim on Outer Dock */}
-          <div
-            aria-hidden="true"
-            className={`absolute top-0 inset-x-8 h-[1px] bg-gradient-to-r from-transparent ${
-              isLight ? 'via-white/90' : 'via-cyan-300/70'
-            } to-transparent pointer-events-none`}
-          />
 
           {/* Dynamic Light Refraction Glow while dragging */}
           {isDragging && reflectionPos && (
@@ -617,8 +608,8 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
                 left: `${reflectionPos.x}px`,
                 top: `${reflectionPos.y}px`,
                 background: isLight
-                  ? 'radial-gradient(ellipse at center, rgba(2, 132, 199, 0.25) 0%, transparent 70%)'
-                  : 'radial-gradient(ellipse at center, rgba(6, 182, 212, 0.35) 0%, transparent 70%)',
+                  ? 'none'
+                  : 'none',
               }}
             />
           )}
@@ -631,9 +622,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
             <div
               className={`w-7 h-1 rounded-full transition-all duration-200 ${
                 isDragging
-                  ? isLight
-                    ? 'bg-sky-500 scale-x-125'
-                    : 'bg-cyan-400 scale-x-125'
+                  ? isLight ? 'bg-slate-400 scale-x-125' : 'bg-slate-500 scale-x-125'
                   : isLight
                   ? 'bg-slate-300/80'
                   : 'bg-white/20'
@@ -649,8 +638,8 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
               isDragging ? 'scale-105 shadow-lg' : ''
             } ${
               isLight
-                ? 'bg-white/45 border border-sky-300/65 shadow-[0_4px_18px_rgba(2,132,199,0.14)]'
-                : 'bg-cyan-400/12 border border-cyan-400/35 shadow-[0_0_20px_rgba(6,182,212,0.24)]'
+                ? 'bg-white border border-slate-300 shadow-sm'
+                : 'bg-slate-700 border border-slate-600'
             }`}
             style={{
               left: `${pillStyle.left}px`,
@@ -692,8 +681,8 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
                   className={`relative flex flex-col items-center justify-center w-full h-full rounded-2xl transition-all duration-200 cursor-pointer ${
                     isItemVisualActive
                       ? isLight
-                        ? 'text-sky-700'
-                        : 'text-cyan-300'
+                        ? 'text-slate-900'
+                        : 'text-white'
                       : isLight
                       ? 'text-slate-500 hover:text-slate-800'
                       : 'text-neutral-400 hover:text-neutral-200'
@@ -711,7 +700,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
                       strokeWidth={2.2}
                       className={`w-[22px] h-[22px] transition-transform duration-200 ${
                         isItemVisualActive
-                          ? 'scale-110 drop-shadow-[0_0_8px_rgba(6,182,212,0.5)]'
+                          ? 'scale-110'
                           : ''
                       }`}
                     />
@@ -720,8 +709,8 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
                       <span
                         className={`absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full ring-2 ${
                           isLight
-                            ? 'bg-sky-500 ring-white'
-                            : 'bg-cyan-400 ring-[#070b14]'
+                            ? 'bg-slate-900 ring-white'
+                            : 'bg-slate-900 dark:bg-white ring-white dark:ring-slate-950'
                         } animate-pulse`}
                       />
                     )}

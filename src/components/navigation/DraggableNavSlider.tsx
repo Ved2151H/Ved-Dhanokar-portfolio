@@ -307,7 +307,7 @@ export const DraggableNavSlider: React.FC<DraggableNavSliderProps> = ({
         } ${
           isLight
             ? 'bg-slate-200/65 border border-slate-300/80 shadow-[inset_0_1px_3px_rgba(0,0,0,0.08)]'
-            : 'bg-white/[0.04] border border-white/[0.08] shadow-[inset_0_1px_3px_rgba(0,0,0,0.5)]'
+            : 'bg-slate-800 border border-slate-700'
         }`}
         style={{
           touchAction: 'pan-y',
@@ -335,21 +335,15 @@ export const DraggableNavSlider: React.FC<DraggableNavSliderProps> = ({
             isDragging ? 'duration-75 scale-[1.02]' : 'duration-300 ease-out'
           } ${
             isLight
-              ? 'bg-white text-sky-700 border border-sky-400/40 shadow-[0_4px_16px_rgba(2,132,199,0.18),0_1px_2px_rgba(0,0,0,0.06)]'
-              : 'bg-gradient-to-r from-cyan-500/20 via-sky-500/20 to-blue-500/20 border border-cyan-400/40 shadow-[0_0_15px_rgba(6,182,212,0.35)]'
+              ? 'bg-white text-sky-700 border border-slate-300 shadow-sm'
+              : 'bg-slate-700 border border-slate-600'
           }`}
           style={{
             transform: `translateX(${pillStyle.left}px)`,
             width: `${pillStyle.width}px`,
             left: 0,
           }}
-        >
-          {/* Specular Top Glimmer Line on Pill */}
-          <div
-            aria-hidden="true"
-            className={`absolute top-0 inset-x-0 h-[1px] rounded-t-xl bg-gradient-to-r from-transparent via-white/80 dark:via-cyan-300/80 to-transparent pointer-events-none`}
-          />
-        </div>
+        ></div>
 
         {/* Navigation Items (Buttons) */}
         {NAV_ITEMS.map((item, idx) => {
@@ -367,7 +361,7 @@ export const DraggableNavSlider: React.FC<DraggableNavSliderProps> = ({
                 isItemActive
                   ? isLight
                     ? 'text-sky-700 font-bold'
-                    : 'text-cyan-200 font-bold drop-shadow-[0_0_8px_rgba(6,182,212,0.6)]'
+                    : 'text-slate-900 dark:text-white font-bold'
                   : isLight
                   ? 'text-slate-600 hover:text-slate-900 hover:bg-black/[0.03]'
                   : 'text-neutral-400 hover:text-neutral-200 hover:bg-white/[0.04]'
@@ -387,7 +381,7 @@ export const DraggableNavSlider: React.FC<DraggableNavSliderProps> = ({
         <span className="flex items-center gap-0.5">
           <span>◀</span> Drag or click
         </span>
-        <span className="text-[10px] font-bold text-cyan-500/80 dark:text-cyan-400 light:text-sky-600">
+        <span className="text-[10px] font-bold text-slate-600 dark:text-neutral-400">
           {NAV_ITEMS[displayedActiveIndex]?.label}
         </span>
         <span className="flex items-center gap-0.5">
@@ -397,3 +391,4 @@ export const DraggableNavSlider: React.FC<DraggableNavSliderProps> = ({
     </div>
   );
 };
+

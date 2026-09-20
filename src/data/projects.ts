@@ -40,7 +40,7 @@ export const projectsData: Project[] = [
     badge: 'Autonomous IoT & Sensor Fusion',
     subtitle: 'Zero-Interaction Autonomous Emergency Detection via Smartphone Sensor Data',
     description:
-      'Constructed a zero-interaction emergency detection platform that monitors smartphone physical sensor telemetry—accelerometer, gyroscope, and GPS—to autonomously identify severe distress incidents without requiring manual screen interaction.',
+      'Constructed a zero-interaction emergency detection platform that monitors smartphone physical sensor telemetry, accelerometer, gyroscope, and GPS, to autonomously identify severe distress incidents without requiring manual screen interaction.',
     problem:
       'In high-impact crashes or incapacitating personal emergencies, victims are often physically unable to unlock their devices, dial emergency services, or press SOS buttons.',
     solution:
