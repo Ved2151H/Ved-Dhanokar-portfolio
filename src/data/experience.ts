@@ -5,9 +5,9 @@ export const experienceData: ExperienceItem[] = [
     id: 'sure-trust',
     role: 'AI/ML Intern',
     company: 'SURE Trust',
-    period: 'Nov 2025 – Present',
+    period: 'Nov 2025 – Jun 2026',
     location: 'Remote',
-    isCurrent: true,
+    isCurrent: false,
     responsibilities: [
       'Developed and trained AI/ML models using Python, Pandas, NumPy, Scikit-learn, TensorFlow, PyTorch, and Seaborn.',
       'Worked on data preprocessing, model evaluation, and deep learning techniques including ANN, CNN, RNN, and RAG.',

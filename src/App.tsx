@@ -7,7 +7,6 @@
 import React from 'react';
 import { ThemeProvider, useTheme } from './context/ThemeContext';
 import { FloatingNavbar } from './components/navigation/FloatingNavbar';
-import { MobileBottomNav } from './components/navigation/MobileBottomNav';
 import { NAV_ITEMS } from './constants/navigation';
 import { useActiveSection } from './hooks/useActiveSection';
 import { HomeScreen } from './screens/HomeScreen';
@@ -32,7 +31,7 @@ const AppContent: React.FC = () => {
   return (
     <div
       id="app-root-container"
-      className={`min-h-screen transition-colors duration-300 ${
+      className={`min-h-screen overflow-x-hidden transition-colors duration-300 ${
         isLight
           ? 'bg-[#fafafa] text-slate-800 selection:bg-slate-200 selection:text-slate-900'
           : 'bg-[#05070c] text-neutral-100 selection:bg-slate-800 selection:text-neutral-200'
@@ -46,9 +45,6 @@ const AppContent: React.FC = () => {
         <HomeScreen />
         <Footer />
       </div>
-
-      {/* 3. FIXED VIEWPORT COMPONENT: Mobile Bottom Navigation Dock (Always stationary at bottom of screen) */}
-      <MobileBottomNav activeSection={activeSection} onSelectSection={scrollToId} />
     </div>
   );
 };
