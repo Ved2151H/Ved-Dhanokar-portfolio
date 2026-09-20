@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { ArrowUpRight, ChevronRight, Github } from 'lucide-react';
+import { ArrowUpRight, Github } from 'lucide-react';
 import { projectsData } from '../../data/projects';
 import { Project } from '../../types/portfolio';
-import { GlassCard } from '../primitives/GlassCard';
+import { GlowCard, glowAccentFor } from '../primitives/GlowCard';
 import { GlassPill } from '../primitives/GlassPill';
 import { GlassButton } from '../primitives/GlassButton';
 import { GlassSection } from '../primitives/GlassSection';
@@ -29,12 +29,13 @@ export const ProjectsSection: React.FC = () => {
     >
       {/* Featured Project */}
       <div className="mb-12">
-        <GlassCard
+        <GlowCard
           id="featured-project-card"
-          className="p-6 sm:p-8 lg:p-10 transition-all duration-300 group cursor-pointer"
+          accent="cyan"
+          className="group cursor-pointer"
           onClick={() => handleOpenProject(featuredProject)}
         >
-          <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
+          <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 p-2 sm:p-4 lg:p-6">
             <div className="flex-1 flex flex-col justify-between">
               <div>
                 <div className="flex flex-wrap items-center gap-2 mb-4">
@@ -105,41 +106,30 @@ export const ProjectsSection: React.FC = () => {
               </div>
             </div>
           </div>
-        </GlassCard>
+        </GlowCard>
       </div>
 
       {/* Secondary Projects Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {secondaryProjects.map((project) => (
-          <GlassCard
+        {secondaryProjects.map((project, index) => (
+          <GlowCard
             key={project.id}
             id={`project-card-${project.id}`}
-            className="p-6 sm:p-7 flex flex-col justify-between group cursor-pointer"
+            accent={glowAccentFor(index + 1)}
+            className="h-full group cursor-pointer"
             onClick={() => handleOpenProject(project)}
-          >
-            <div>
-              <div className="flex items-center justify-between gap-2 mb-4">
-                <span className="inline-flex items-center px-2.5 py-0.5 rounded-md text-[11px] font-semibold tracking-wide bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
-                  {project.badge}
-                </span>
-                <ArrowUpRight className="w-4 h-4 text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white transition-colors" />
-              </div>
-
-              <h3 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight mb-2">
-                {project.title}
-              </h3>
-
-              <p className="text-xs font-medium text-slate-600 dark:text-neutral-400 mb-3">
-                {project.subtitle}
-              </p>
-
-              <p className="text-sm text-slate-600 dark:text-neutral-300 leading-relaxed mb-5 line-clamp-3">
-                {project.description}
-              </p>
-            </div>
-
-            <div>
-              <div className="flex flex-wrap gap-1.5 mb-5">
+            meta={
+              <span className="inline-flex items-center px-2.5 py-0.5 rounded-md text-[11px] font-semibold tracking-wide bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 normal-case">
+                {project.badge}
+              </span>
+            }
+            action={
+              <ArrowUpRight className="w-4 h-4 text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white transition-colors" />
+            }
+            title={project.title}
+            subtitle={project.subtitle}
+            footerLeft={
+              <div className="flex flex-wrap gap-1.5">
                 {project.technologies.slice(0, 4).map((tech) => (
                   <span key={tech} className="px-2 py-1 bg-slate-50 dark:bg-slate-800/50 text-slate-600 dark:text-neutral-400 rounded text-[11px] font-medium border border-slate-200 dark:border-slate-700">
                     {tech}
@@ -151,15 +141,13 @@ export const ProjectsSection: React.FC = () => {
                   </span>
                 )}
               </div>
-
-              <div className="pt-3 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs text-slate-500 dark:text-neutral-400">
-                <span className="font-mono">{project.category}</span>
-                <span className="text-slate-900 dark:text-white group-hover:underline flex items-center gap-1 font-medium">
-                  Details <ChevronRight className="w-3 h-3" />
-                </span>
-              </div>
-            </div>
-          </GlassCard>
+            }
+            footerRight="Details"
+          >
+            <p className="text-sm text-slate-600 dark:text-neutral-300 leading-relaxed line-clamp-3 text-center">
+              {project.description}
+            </p>
+          </GlowCard>
         ))}
       </div>
 

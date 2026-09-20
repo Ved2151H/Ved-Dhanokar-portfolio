@@ -1,6 +1,6 @@
 import React from 'react';
 import { educationData } from '../../data/education';
-import { GlassCard } from '../primitives/GlassCard';
+import { GlowCard } from '../primitives/GlowCard';
 import { GlassSection } from '../primitives/GlassSection';
 
 export const EducationSection: React.FC = () => {
@@ -12,31 +12,23 @@ export const EducationSection: React.FC = () => {
       subtitle="Rigorous foundational coursework in Information Technology, Software Architectures, Algorithms, and Artificial Intelligence."
     >
       <div className="max-w-3xl">
-        <GlassCard id="education-main-card" className="p-6 sm:p-8">
-          <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-6 mb-6">
-            <div>
-              <span className="text-xs font-mono text-slate-500 dark:text-neutral-400 uppercase tracking-wider block mb-2 font-semibold">
-                Undergraduate Engineering Degree
-              </span>
-              <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight mb-1">
-                {educationData.degree} in {educationData.field}
-              </h3>
-              <p className="text-sm font-medium text-slate-600 dark:text-neutral-400">
-                {educationData.institutionFull}
-              </p>
-            </div>
-
-            <div className="flex sm:flex-col items-center sm:items-end gap-3 shrink-0">
-              <div className="text-sm font-mono font-bold text-slate-900 dark:text-white">
-                CGPA: {educationData.cgpa}
-              </div>
-              <span className="text-xs font-mono text-slate-500 dark:text-neutral-400">
-                {educationData.period}
-              </span>
-            </div>
-          </div>
-
-          <div className="pt-5 border-t border-slate-200 dark:border-slate-800 space-y-2.5">
+        <GlowCard
+          id="education-main-card"
+          accent="cyan"
+          meta={educationData.period}
+          title={`${educationData.degree} in ${educationData.field}`}
+          subtitle={educationData.institutionFull}
+          progress={{
+            value: (parseFloat(educationData.cgpa) / 10) * 100,
+            label: `CGPA ${educationData.cgpa} / 10`,
+          }}
+          footerLeft={
+            <span className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-neutral-500">
+              Undergraduate Engineering Degree
+            </span>
+          }
+        >
+          <div>
             <span className="text-xs font-mono text-slate-500 dark:text-neutral-400 uppercase tracking-wider block mb-3">
               Academic Focus & Key Highlights
             </span>
@@ -49,7 +41,7 @@ export const EducationSection: React.FC = () => {
               ))}
             </ul>
           </div>
-        </GlassCard>
+        </GlowCard>
       </div>
     </GlassSection>
   );

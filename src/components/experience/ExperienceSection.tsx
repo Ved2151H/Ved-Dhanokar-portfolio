@@ -1,6 +1,6 @@
 import React from 'react';
 import { experienceData } from '../../data/experience';
-import { GlassCard } from '../primitives/GlassCard';
+import { GlowCard } from '../primitives/GlowCard';
 import { GlassPill } from '../primitives/GlassPill';
 import { GlassContainer } from '../primitives/GlassContainer';
 
@@ -22,35 +22,29 @@ export const ExperienceSection: React.FC = () => {
 
         <div className="max-w-3xl space-y-6">
           {experienceData.map((exp) => (
-            <GlassCard
+            <GlowCard
               id={`experience-card-${exp.id}`}
               key={exp.id}
-              className="p-6 sm:p-8"
-            >
-              <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-5">
-                <div>
-                  <div className="flex items-center gap-2 mb-1.5 flex-wrap">
-                    <span className="text-xs font-mono text-slate-500 dark:text-neutral-400 font-semibold uppercase tracking-wider">
-                      {exp.company}
-                    </span>
-                    {exp.isCurrent && (
-                      <GlassPill variant="accent" dot={true} dotColor="bg-emerald-500">
-                        Present
-                      </GlassPill>
-                    )}
-                  </div>
-                  <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
-                    {exp.role}
-                  </h3>
-                </div>
-
-                <div className="flex flex-wrap items-center gap-2 text-xs text-slate-500 dark:text-neutral-400 font-mono shrink-0">
+              accent="blue"
+              meta={
+                <span className="flex flex-wrap items-center gap-2">
                   <span>{exp.period}</span>
-                  <span>·</span>
-                  <span>{exp.location}</span>
-                </div>
-              </div>
-
+                  {exp.isCurrent && (
+                    <GlassPill variant="accent" dot={true} dotColor="bg-emerald-500">
+                      Present
+                    </GlassPill>
+                  )}
+                </span>
+              }
+              title={exp.role}
+              subtitle={exp.company}
+              footerLeft={
+                <span className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-neutral-500">
+                  {exp.technologies.length} technologies
+                </span>
+              }
+              footerRight={exp.location}
+            >
               <ul className="space-y-2.5 mb-6">
                 {exp.responsibilities.map((resp, idx) => (
                   <li key={idx} className="flex items-start gap-3 text-sm sm:text-base text-slate-600 dark:text-neutral-300 leading-relaxed">
@@ -75,7 +69,7 @@ export const ExperienceSection: React.FC = () => {
                   ))}
                 </div>
               </div>
-            </GlassCard>
+            </GlowCard>
           ))}
         </div>
       </GlassContainer>

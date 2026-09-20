@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Search } from 'lucide-react';
 import { skillCategories } from '../../data/skills';
-import { GlassCard } from '../primitives/GlassCard';
+import { GlowCard, glowAccentFor } from '../primitives/GlowCard';
 import { GlassSection } from '../primitives/GlassSection';
 
 export const SkillsSection: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
+  const totalSkills = skillCategories.reduce((sum, cat) => sum + cat.skills.length, 0);
 
   const filteredCategories = skillCategories
     .map((cat) => {
@@ -79,33 +80,35 @@ export const SkillsSection: React.FC = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {filteredCategories.map((category) => (
-          <GlassCard
-            key={category.id}
-            id={`skill-card-${category.id}`}
-            className="p-6 sm:p-8 flex flex-col h-full"
-          >
-            <div className="mb-4">
-              <h3 className="text-lg font-bold text-slate-900 dark:text-white tracking-tight mb-1">
-                {category.title}
-              </h3>
-              <p className="text-sm text-slate-600 dark:text-neutral-400 leading-relaxed mb-5">
-                {category.description}
-              </p>
-            </div>
-
-            <div className="flex flex-wrap gap-2 mt-auto">
-              {category.skills.map((skill) => (
-                <span
-                  key={skill}
-                  className="px-2.5 py-1 text-xs font-medium rounded bg-slate-100 text-slate-700 border border-slate-200 dark:bg-slate-800/50 dark:text-neutral-300 dark:border-slate-700"
-                >
-                  {skill}
-                </span>
-              ))}
-            </div>
-          </GlassCard>
-        ))}
+        {filteredCategories.map((category) => {
+          const stableIndex = skillCategories.findIndex((cat) => cat.id === category.id);
+          return (
+            <GlowCard
+              key={category.id}
+              id={`skill-card-${category.id}`}
+              accent={glowAccentFor(stableIndex)}
+              className="h-full"
+              meta={`${category.skills.length} technologies`}
+              title={category.title}
+              subtitle={category.description}
+              progress={{
+                value: (category.skills.length / totalSkills) * 100,
+                label: 'Stack share',
+              }}
+            >
+              <div className="flex flex-wrap gap-2">
+                {category.skills.map((skill) => (
+                  <span
+                    key={skill}
+                    className="px-2.5 py-1 text-xs font-medium rounded bg-slate-100 text-slate-700 border border-slate-200 dark:bg-slate-800/50 dark:text-neutral-300 dark:border-slate-700"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </GlowCard>
+          );
+        })}
       </div>
     </GlassSection>
   );

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Download, ArrowUpRight } from 'lucide-react';
-import { GlassCard } from '../primitives/GlassCard';
+import { GlowCard } from '../primitives/GlowCard';
 import { GlassButton } from '../primitives/GlassButton';
 import { GlassContainer } from '../primitives/GlassContainer';
 
@@ -60,34 +60,36 @@ export const AboutSection: React.FC = () => {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <GlassCard className="p-5">
-              <h3 className="text-sm font-bold text-slate-900 dark:text-white mb-1">AI / ML</h3>
-              <p className="text-xs text-slate-600 dark:text-neutral-400 font-mono">Computer Vision, RAG & LLMs</p>
-            </GlassCard>
-            
-            <GlassCard className="p-5">
-              <h3 className="text-sm font-bold text-slate-900 dark:text-white mb-1">Full-Stack</h3>
-              <p className="text-xs text-slate-600 dark:text-neutral-400 font-mono">MERN Stack, Scalable Architectures</p>
-            </GlassCard>
-            
-            <GlassCard className="p-5">
-              <h3 className="text-sm font-bold text-slate-900 dark:text-white mb-1">Problem Solving</h3>
-              <p className="text-xs text-slate-600 dark:text-neutral-400 font-mono">DSA & Logic, Engineering Algorithms</p>
-            </GlassCard>
-            
-            <GlassCard className="p-5">
-              <h3 className="text-sm font-bold text-slate-900 dark:text-white mb-1">Continuous Learning</h3>
-              <p className="text-xs text-slate-600 dark:text-neutral-400 font-mono">New Tech, Better Solutions</p>
-            </GlassCard>
+            <GlowCard accent="blue">
+              <h3 className="text-sm font-bold text-slate-900 dark:text-white mb-1 text-center">AI / ML</h3>
+              <p className="text-xs text-slate-600 dark:text-neutral-400 font-mono text-center">Computer Vision, RAG & LLMs</p>
+            </GlowCard>
+
+            <GlowCard accent="teal">
+              <h3 className="text-sm font-bold text-slate-900 dark:text-white mb-1 text-center">Full-Stack</h3>
+              <p className="text-xs text-slate-600 dark:text-neutral-400 font-mono text-center">MERN Stack, Scalable Architectures</p>
+            </GlowCard>
+
+            <GlowCard accent="amber">
+              <h3 className="text-sm font-bold text-slate-900 dark:text-white mb-1 text-center">Problem Solving</h3>
+              <p className="text-xs text-slate-600 dark:text-neutral-400 font-mono text-center">DSA & Logic, Engineering Algorithms</p>
+            </GlowCard>
+
+            <GlowCard accent="violet">
+              <h3 className="text-sm font-bold text-slate-900 dark:text-white mb-1 text-center">Continuous Learning</h3>
+              <p className="text-xs text-slate-600 dark:text-neutral-400 font-mono text-center">New Tech, Better Solutions</p>
+            </GlowCard>
 
             <div className="sm:col-span-2 mt-2">
-              <GlassCard className="p-6 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50">
-                <p className="text-sm sm:text-base font-medium text-slate-800 dark:text-neutral-200 leading-relaxed italic mb-4">
+              <GlowCard accent="cyan">
+                <p className="text-sm sm:text-base font-medium text-slate-800 dark:text-neutral-200 leading-relaxed italic mb-4 text-center">
                   "Technology is most powerful when it solves real problems."
                 </p>
-                <span className="font-semibold text-slate-900 dark:text-white block">Ved Dhanokar</span>
-                <span className="text-[11px] font-mono text-slate-500 dark:text-neutral-400">AI/ML & Full-Stack</span>
-              </GlassCard>
+                <div className="text-center">
+                  <span className="font-semibold text-slate-900 dark:text-white block">Ved Dhanokar</span>
+                  <span className="text-[11px] font-mono text-slate-500 dark:text-neutral-400">AI/ML & Full-Stack</span>
+                </div>
+              </GlowCard>
             </div>
           </div>
         </div>
