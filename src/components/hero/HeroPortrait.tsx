@@ -14,8 +14,8 @@ export const HeroPortrait: React.FC = () => {
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         className="relative group"
       >
-        <div className={`relative rounded-[24px] p-2 transition-all duration-300 ${isLight ? 'bg-white border border-slate-200 shadow-sm' : 'bg-slate-900 border border-slate-800 shadow-md'}`}>
-          <div className="relative z-10 rounded-[18px] overflow-hidden aspect-[4/5] w-full bg-slate-100 dark:bg-slate-800">
+        <div className={`relative rounded-[24px] p-2 transition-all duration-300 ${isLight ? 'bg-white/70 border border-slate-200/80 shadow-sm backdrop-blur-sm' : 'bg-white/[0.05] border border-white/10 shadow-md backdrop-blur-sm'}`}>
+          <div className="relative z-10 rounded-[18px] overflow-hidden aspect-[4/5] w-full bg-slate-100 dark:bg-white/[0.04]">
             <img
               id="hero-portrait-image"
               src="/me.jpg"

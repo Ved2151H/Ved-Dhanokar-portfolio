@@ -138,7 +138,7 @@ export const HeroSection: React.FC = () => {
           initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.7, duration: 0.6 }}
-          className="mt-12 lg:mt-16 pt-8 border-t border-slate-200 dark:border-slate-800"
+          className="mt-12 lg:mt-16 rounded-2xl border border-slate-200/80 bg-white/60 px-5 py-6 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.04]"
         >
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
             <div className="flex flex-col">

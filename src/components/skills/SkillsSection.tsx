@@ -316,7 +316,7 @@ export const SkillsSection: React.FC = () => {
   return (
     <section id="skills" className="relative py-16 sm:py-20 lg:py-24">
       <GlassContainer size="lg">
-        <div className="relative overflow-clip rounded-2xl border border-slate-200 bg-[#faf9f7] shadow-sm dark:border-white/[0.06] dark:bg-[#0a0c10]">
+        <div className="relative overflow-clip rounded-2xl border border-slate-200/80 bg-[#faf9f7]/85 shadow-sm backdrop-blur-md dark:border-white/10 dark:bg-[#0a0c10]/85">
           {/* Code-editor backdrop — decorative, behind content, never
               interfering with readability: faint editor line-rules, indentation
               guides, near-invisible abstract "syntax tokens" (dark only), and a

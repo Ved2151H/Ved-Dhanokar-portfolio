@@ -23,7 +23,7 @@ export const GlassCard: React.FC<GlassCardProps> = ({
   return (
     <div
       id={id}
-      className={`relative rounded-lg overflow-hidden bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 transition-colors duration-200 ${className}`}
+      className={`relative rounded-2xl overflow-hidden bg-white/85 dark:bg-white/[0.06] border border-slate-200/90 dark:border-white/10 backdrop-blur-xl transition-colors duration-200 ${className}`}
       {...props}
     >
       {children}

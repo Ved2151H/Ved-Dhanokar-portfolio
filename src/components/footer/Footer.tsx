@@ -60,7 +60,7 @@ export function Footer() {
 	return (
 		<footer
 			id="portfolio-footer"
-			className="md:rounded-t-6xl relative w-full max-w-6xl mx-auto flex flex-col items-center justify-center rounded-t-4xl border-t border-slate-200 bg-slate-50 bg-[radial-gradient(35%_128px_at_50%_0%,rgba(15,23,42,0.05),transparent)] px-6 py-12 lg:py-16 dark:border-slate-800 dark:bg-[#080c16] dark:bg-[radial-gradient(35%_128px_at_50%_0%,rgba(255,255,255,0.08),transparent)]"
+			className="md:rounded-t-6xl relative w-full max-w-6xl mx-auto flex flex-col items-center justify-center rounded-t-4xl border-x border-t border-slate-200/80 bg-white/60 px-6 py-12 backdrop-blur-md lg:py-16 dark:border-white/10 dark:bg-white/[0.04]"
 		>
 			<div className="bg-slate-900/20 dark:bg-white/20 absolute top-0 right-1/2 left-1/2 h-px w-1/3 -translate-x-1/2 -translate-y-1/2 rounded-full blur" />
 

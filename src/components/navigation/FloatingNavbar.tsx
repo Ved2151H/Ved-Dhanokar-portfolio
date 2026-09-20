@@ -11,7 +11,6 @@ import { cn } from '../../lib/utils';
 import { useTheme } from '../../context/ThemeContext';
 import { NAV_ITEMS } from '../../constants/navigation';
 import { profileData } from '../../data/profile';
-
 /* ─────────────────────────────────────────────────────────────────────────────
    Floating Navbar (Aceternity-style), adapted to this portfolio:
    - Full-width bar at rest; past 100px of scroll it springs into a centered
@@ -214,7 +213,7 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
         minWidth: 0,
       }}
       className={cn(
-        'relative z-[60] mx-auto hidden w-full max-w-7xl flex-row items-center justify-between self-start rounded-full border border-slate-200 bg-white px-4 py-2 shadow-sm lg:flex dark:border-neutral-800 dark:bg-[#0d0f14]',
+        'relative z-[60] mx-auto hidden w-full max-w-7xl flex-row items-center justify-between self-start rounded-full border border-slate-200/80 bg-white/70 px-4 py-2 shadow-sm backdrop-blur-md lg:flex dark:border-white/10 dark:bg-white/[0.05]',
         className,
       )}
     >
@@ -228,11 +227,59 @@ export const NavItems = ({ items, className, activeHref, onItemClick }: NavItems
   const activeIndex = activeHref ? items.findIndex((item) => item.href === activeHref) : -1;
   const pillIndex = hovered !== null ? hovered : activeIndex;
 
+  // ── Press-and-drag horizontal sliding (mouse) ──
+  // Trackpads/Touch already scroll the strip natively; this adds the same
+  // grab-and-slide for mouse users. A real drag suppresses the click so
+  // items aren't navigated while sliding; a plain click still navigates.
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const drag = useRef({ active: false, moved: false, startX: 0, startScroll: 0 });
+
+  const onPointerDown = (e: React.PointerEvent) => {
+    if (e.pointerType !== 'mouse' || e.button !== 0) return;
+    const el = scrollRef.current;
+    if (!el) return;
+    drag.current = { active: true, moved: false, startX: e.clientX, startScroll: el.scrollLeft };
+  };
+
+  const onPointerMove = (e: React.PointerEvent) => {
+    const d = drag.current;
+    if (!d.active) return;
+    const el = scrollRef.current;
+    if (!el) return;
+    const dx = e.clientX - d.startX;
+    if (!d.moved && Math.abs(dx) > 6) {
+      d.moved = true;
+      el.style.scrollBehavior = 'auto';
+      el.style.cursor = 'grabbing';
+      el.style.userSelect = 'none';
+    }
+    if (d.moved) el.scrollLeft = d.startScroll - dx;
+  };
+
+  const endDrag = () => {
+    const el = scrollRef.current;
+    // Release the click-suppression on the next tick so the anchor's click
+    // handler (which checks `moved`) runs first.
+    requestAnimationFrame(() => {
+      if (el) {
+        el.style.scrollBehavior = '';
+        el.style.cursor = '';
+        el.style.userSelect = '';
+      }
+      drag.current = { active: false, moved: false, startX: 0, startScroll: 0 };
+    });
+  };
+
   return (
     <motion.div
+      ref={scrollRef}
+      onPointerDown={onPointerDown}
+      onPointerMove={onPointerMove}
+      onPointerUp={endDrag}
+      onPointerLeave={endDrag}
       onMouseLeave={() => setHovered(null)}
       className={cn(
-        'min-w-0 hidden flex-1 flex-row items-center gap-2 overflow-x-auto scrollbar-none px-2 text-sm font-medium lg:flex',
+        'min-w-0 hidden flex-1 flex-row items-center gap-2 overflow-x-auto scrollbar-none cursor-grab px-2 text-sm font-medium lg:flex',
         className,
       )}
     >
@@ -241,6 +288,7 @@ export const NavItems = ({ items, className, activeHref, onItemClick }: NavItems
           onMouseEnter={() => setHovered(idx)}
           onClick={(e) => {
             e.preventDefault();
+            if (drag.current.moved) return; // it was a drag, not a click
             onItemClick?.(item);
           }}
           // Hover zoom: only this item scales (transform — zero layout
@@ -284,7 +332,7 @@ export const MobileNav = ({ children, className, visible }: MobileNavProps) => {
         damping: 50,
       }}
       className={cn(
-        'relative z-50 mx-auto flex w-full max-w-[calc(100vw-2rem)] flex-col items-center justify-between rounded-2xl border border-slate-200 bg-white px-3 py-2 shadow-sm lg:hidden dark:border-neutral-800 dark:bg-[#0d0f14]',
+        'relative z-50 mx-auto flex w-full max-w-[calc(100vw-2rem)] flex-col items-center justify-between rounded-2xl border border-slate-200/80 bg-white/70 px-3 py-2 shadow-sm backdrop-blur-md lg:hidden dark:border-white/10 dark:bg-white/[0.05]',
         className,
       )}
     >
@@ -311,7 +359,7 @@ export const MobileNavMenu = ({ children, className, isOpen, onClose }: MobileNa
           exit={{ opacity: 0, scale: 0.95 }}
           transition={{ duration: 0.2, ease: 'easeOut' }}
           className={cn(
-            'absolute inset-x-0 top-16 z-50 flex w-full flex-col items-start justify-start gap-4 rounded-lg bg-white px-4 py-8 border border-slate-200 shadow-lg dark:border-neutral-800 dark:bg-[#0d0f14]',
+            'absolute inset-x-0 top-16 z-50 flex w-full flex-col items-start justify-start gap-4 rounded-2xl bg-white/90 px-4 py-8 border border-slate-200/80 shadow-lg backdrop-blur-md dark:border-white/10 dark:bg-[#0a0c10]/95',
             className,
           )}
         >

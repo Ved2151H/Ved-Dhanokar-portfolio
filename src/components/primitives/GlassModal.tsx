@@ -76,14 +76,10 @@ export const GlassModal: React.FC<GlassModalProps> = ({
       {/* Modal Container */}
       <div className={`relative w-full ${getMaxWidthClass()} my-8 z-10 transition-all`}>
         <GlassCard
-          material="primary"
-          variant="elevated"
-          accent="cyan"
-          specular={true}
-          className="border border-slate-200/90 dark:border-white/[0.14] shadow-[0_24px_64px_rgba(15,23,42,0.18)] dark:shadow-[0_24px_64px_rgba(0,0,0,0.85),0_0_30px_rgba(6,182,212,0.14)] max-h-[85vh] flex flex-col"
+          className="rounded-2xl border border-slate-200/90 bg-white/85 backdrop-blur-xl shadow-[0_24px_64px_rgba(15,23,42,0.18)] dark:border-white/10 dark:bg-white/[0.06] dark:shadow-[0_24px_64px_rgba(0,0,0,0.6)] max-h-[85vh] flex flex-col"
         >
           {/* Header */}
-          <div className="flex items-center justify-between p-5 sm:p-6 border-b border-slate-200 dark:border-white/[0.08] shrink-0">
+          <div className="flex items-center justify-between p-5 sm:p-6 border-b border-slate-200/80 dark:border-white/[0.08] shrink-0">
             <div>
               {badge && (
                 <span className="text-xs font-semibold text-cyan-600 dark:text-cyan-400 tracking-wide uppercase">

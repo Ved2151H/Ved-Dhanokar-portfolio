@@ -22,16 +22,16 @@ export const GlassPill: React.FC<GlassPillProps> = ({
   const getVariantStyles = () => {
     switch (variant) {
       case 'accent':
-        return 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-neutral-300 border-slate-200 dark:border-slate-700';
+        return 'bg-white/50 text-slate-700 border-slate-200/80 backdrop-blur-sm dark:bg-white/[0.06] dark:text-neutral-300 dark:border-white/10';
       case 'active':
         return 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 border-slate-900 dark:border-white';
       case 'subtle':
-        return 'bg-transparent text-slate-500 dark:text-neutral-500 border-slate-200 dark:border-slate-700';
+        return 'bg-transparent text-slate-500 dark:text-neutral-500 border-slate-200/70 dark:border-white/10';
       case 'outline':
-        return 'bg-transparent text-slate-700 dark:text-neutral-300 border-slate-300 dark:border-slate-600';
+        return 'bg-white/40 text-slate-700 border-slate-300/80 backdrop-blur-sm dark:bg-white/[0.04] dark:text-neutral-300 dark:border-white/10';
       case 'default':
       default:
-        return 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-neutral-300 border-slate-200 dark:border-slate-700';
+        return 'bg-white/50 text-slate-700 border-slate-200/80 backdrop-blur-sm dark:bg-white/[0.06] dark:text-neutral-300 dark:border-white/10';
     }
   };
 

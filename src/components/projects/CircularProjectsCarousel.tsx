@@ -118,7 +118,7 @@ export const CircularProjectsCarousel: React.FC<CircularProjectsCarouselProps> =
                     : `0 0 0 1px ${withAlpha(accent, 0.14)}, 0 12px 36px rgba(0, 0, 0, 0.45)`,
                 }}
                 className={cn(
-                  'relative flex h-[290px] cursor-pointer flex-col overflow-hidden rounded-2xl border bg-white p-6 sm:h-[270px] dark:bg-[#0d0f14]',
+                  'relative flex h-[290px] cursor-pointer flex-col overflow-hidden rounded-2xl border bg-white/70 p-6 backdrop-blur-sm sm:h-[270px] dark:bg-white/[0.04]',
                 )}
                 aria-hidden={!isActive}
               >
