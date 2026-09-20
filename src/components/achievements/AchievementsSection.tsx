@@ -7,6 +7,7 @@ export const AchievementsSection: React.FC = () => {
   return (
     <GlassSection
       id="achievements"
+      ghostWord="AWARDS"
       badge="Honors & Recognition"
       title="Hackathon Accolades & Competitions"
       subtitle="Competitive achievements across national smart city hackathons, sensor-driven design challenges, and algorithmic programming contests."

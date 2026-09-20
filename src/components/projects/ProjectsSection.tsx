@@ -17,6 +17,7 @@ export const ProjectsSection: React.FC = () => {
   return (
     <GlassSection
       id="projects"
+      ghostWord="PROJECTS"
       badge="Engineering Showcase"
       title="Featured AI & Full-Stack Systems"
       subtitle="Production-grade implementations spanning real-time computer vision, zero-interaction IoT telemetry, private RAG pipelines, and enterprise multi-tenancy."

@@ -7,6 +7,7 @@
 import React from 'react';
 import { ThemeProvider, useTheme } from './context/ThemeContext';
 import { FloatingNavbar } from './components/navigation/FloatingNavbar';
+import { StarfieldBackground } from './components/background/StarfieldBackground';
 import { NAV_ITEMS } from './constants/navigation';
 import { useActiveSection } from './hooks/useActiveSection';
 import { HomeScreen } from './screens/HomeScreen';
@@ -31,12 +32,16 @@ const AppContent: React.FC = () => {
   return (
     <div
       id="app-root-container"
-      className={`min-h-screen overflow-x-hidden transition-colors duration-300 ${
+      className={`min-h-screen overflow-x-clip transition-colors duration-300 ${
         isLight
           ? 'bg-[#fafafa] text-slate-800 selection:bg-slate-200 selection:text-slate-900'
           : 'bg-[#05070c] text-neutral-100 selection:bg-slate-800 selection:text-neutral-200'
       }`}
     >
+      {/* 0. DARK-THEME STARFIELD: fixed falling-star canvas behind everything
+          (renders nothing in light theme) */}
+      <StarfieldBackground />
+
       {/* 1. FLOATING NAVBAR: Desktop pill that shrinks on scroll + mobile hamburger menu (fixed at top) */}
       <FloatingNavbar activeSection={activeSection} onSelectSection={scrollToId} />
 

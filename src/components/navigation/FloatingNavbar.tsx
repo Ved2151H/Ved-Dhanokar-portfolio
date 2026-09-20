@@ -237,14 +237,18 @@ export const NavItems = ({ items, className, activeHref, onItemClick }: NavItems
       )}
     >
       {items.map((item, idx) => (
-        <a
+        <motion.a
           onMouseEnter={() => setHovered(idx)}
           onClick={(e) => {
             e.preventDefault();
             onItemClick?.(item);
           }}
+          // Hover zoom: only this item scales (transform — zero layout
+          // shift for neighbors); the sliding pill inside scales with it.
+          animate={{ scale: hovered === idx ? 1.06 : 1 }}
+          transition={{ type: 'spring', stiffness: 300, damping: 22 }}
           className={cn(
-            'relative mx-auto shrink-0 whitespace-nowrap cursor-pointer px-4 py-2 transition-colors duration-200',
+            'relative mx-auto origin-center shrink-0 whitespace-nowrap cursor-pointer px-4 py-2 transition-colors duration-200',
             pillIndex === idx
               ? 'text-slate-900 dark:text-white'
               : 'text-neutral-600 dark:text-neutral-300',
@@ -260,7 +264,7 @@ export const NavItems = ({ items, className, activeHref, onItemClick }: NavItems
             />
           )}
           <span className="relative z-20">{item.name}</span>
-        </a>
+        </motion.a>
       ))}
     </motion.div>
   );
@@ -347,15 +351,10 @@ export const NavbarLogo = ({ onSelect }: { onSelect: () => void }) => {
         onSelect();
       }}
       aria-label="Ved Dhanokar - Return to top of portfolio"
-      className="relative z-20 mr-4 flex items-center gap-2 px-2 py-1 text-sm"
+      className="relative z-20 mr-4 flex shrink-0 items-center px-2 py-1"
     >
-      <span className="flex min-w-0 flex-col leading-none">
-        <span className="font-bold tracking-tight text-black dark:text-white">
-          {profileData.displayName}
-        </span>
-        <span className="mt-0.5 hidden text-[10px] uppercase tracking-wider font-mono text-neutral-500 dark:text-neutral-500 sm:block">
-          AI/ML & Full-Stack
-        </span>
+      <span className="text-base font-bold tracking-tight text-black sm:text-lg dark:text-white">
+        {profileData.displayName}
       </span>
     </a>
   );

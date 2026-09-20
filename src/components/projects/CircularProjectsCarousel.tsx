@@ -2,7 +2,18 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { ChevronLeft, ChevronRight, Github } from 'lucide-react';
 import { Project } from '../../types/portfolio';
+import { useTheme } from '../../context/ThemeContext';
 import { cn } from '../../lib/utils';
+
+/* hex → rgba with alpha, for accent borders/tints */
+const withAlpha = (hex: string, alpha: number) => {
+  const n = parseInt(hex.slice(1), 16);
+  return `rgba(${(n >> 16) & 255}, ${(n >> 8) & 255}, ${n & 255}, ${alpha})`;
+};
+
+/* Per-project accent for the card's border ring + corner bloom
+   (teal, orange, blue, violet, cyan, red — rotating). */
+const CARD_ACCENTS = ['#2dd4bf', '#fb923c', '#60a5fa', '#c084fc', '#22d3ee', '#f87171'];
 
 /* ─────────────────────────────────────────────────────────────────────────────
    CircularProjectsCarousel
@@ -25,6 +36,7 @@ export const CircularProjectsCarousel: React.FC<CircularProjectsCarouselProps> =
 }) => {
   const count = projects.length;
   const shouldReduceMotion = useReducedMotion();
+  const { isLight } = useTheme();
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
   const [spacing, setSpacing] = useState(240);
@@ -80,6 +92,7 @@ export const CircularProjectsCarousel: React.FC<CircularProjectsCarouselProps> =
           const abs = Math.abs(offset);
           const depth = depthStyle(abs);
           const isActive = offset === 0;
+          const accent = CARD_ACCENTS[i % CARD_ACCENTS.length];
 
           return (
             <div
@@ -98,53 +111,96 @@ export const CircularProjectsCarousel: React.FC<CircularProjectsCarouselProps> =
                 }}
                 transition={{ type: 'spring', stiffness: 260, damping: 30, opacity: { duration: 0.35 } }}
                 onClick={() => !isActive && goTo(i)}
+                style={{
+                  borderColor: withAlpha(accent, isLight ? 0.45 : 0.35),
+                  boxShadow: isLight
+                    ? `0 0 0 1px ${withAlpha(accent, 0.1)}, 0 10px 30px rgba(15, 23, 42, 0.08)`
+                    : `0 0 0 1px ${withAlpha(accent, 0.14)}, 0 12px 36px rgba(0, 0, 0, 0.45)`,
+                }}
                 className={cn(
-                  'flex h-[290px] cursor-pointer flex-col rounded-2xl border bg-white p-6 shadow-lg dark:bg-[#16181d] sm:h-[270px]',
-                  isActive
-                    ? 'border-slate-200 dark:border-white/10'
-                    : 'border-slate-200/70 dark:border-white/[0.06]',
+                  'relative flex h-[290px] cursor-pointer flex-col overflow-hidden rounded-2xl border bg-white p-6 sm:h-[270px] dark:bg-[#0d0f14]',
                 )}
                 aria-hidden={!isActive}
               >
-                <span className="self-start rounded-md bg-slate-100 px-2.5 py-1 font-mono text-[10px] font-semibold tracking-widest text-slate-600 uppercase dark:bg-white/10 dark:text-neutral-300">
-                  {project.badge}
-                </span>
+                {/* Accent bloom from the top edge — the reference's soft
+                    color wash, kept subtle */}
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute inset-x-0 top-0 h-2/3"
+                  style={{
+                    background: `radial-gradient(120% 90% at 50% -20%, ${withAlpha(
+                      accent,
+                      isLight ? 0.12 : 0.16,
+                    )} 0%, transparent 65%)`,
+                  }}
+                />
 
-                <h3 className="mt-4 text-center text-xl font-bold tracking-tight text-slate-900 sm:text-2xl dark:text-white">
-                  {project.title}
-                </h3>
+                <div className="relative z-10 flex h-full flex-col">
+                  <span
+                    className="self-start rounded-md border px-2.5 py-1 font-mono text-[10px] font-semibold tracking-widest uppercase"
+                    style={{
+                      borderColor: withAlpha(accent, 0.3),
+                      color: isLight ? accent : withAlpha(accent, 0.9),
+                      backgroundColor: isLight ? withAlpha(accent, 0.08) : withAlpha(accent, 0.1),
+                    }}
+                  >
+                    {project.badge}
+                  </span>
 
-                <p className="mt-2 line-clamp-3 text-center text-sm leading-relaxed text-slate-600 dark:text-neutral-400">
-                  {project.subtitle}
-                </p>
+                  <h3 className="mt-4 text-center text-xl font-extrabold tracking-tight text-slate-900 sm:text-2xl dark:text-white">
+                    {project.title}
+                  </h3>
 
-                {isActive && (
-                  <div className="mt-auto flex items-center justify-center gap-4 pt-4">
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onSelectProject(project);
-                      }}
-                      className="rounded-md border border-slate-300 bg-white px-4 py-1.5 text-xs font-bold text-slate-900 transition-colors hover:bg-slate-100 dark:border-white/20 dark:bg-white/10 dark:text-white dark:hover:bg-white/20 cursor-pointer"
-                    >
-                      View Details
-                    </button>
-                    {project.githubUrl && (
-                      <a
-                        href={project.githubUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                        aria-label={`${project.title} source code on GitHub`}
-                        className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-500 transition-colors hover:text-slate-900 dark:text-neutral-400 dark:hover:text-white"
-                      >
-                        <Github className="h-3.5 w-3.5" />
-                        Source
-                      </a>
-                    )}
-                  </div>
-                )}
+                  <p className="mt-2 line-clamp-2 text-center text-sm leading-relaxed text-slate-600 dark:text-neutral-400">
+                    {project.subtitle}
+                  </p>
+
+                  {isActive && (
+                    <>
+                      <div className="mt-3 flex flex-wrap items-center justify-center gap-1.5">
+                        {project.technologies.slice(0, 4).map((tech) => (
+                          <span
+                            key={tech}
+                            className="rounded border border-slate-200 bg-slate-50 px-2 py-0.5 text-[10px] font-medium text-slate-600 dark:border-white/10 dark:bg-white/[0.06] dark:text-neutral-300"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                        {project.technologies.length > 4 && (
+                          <span className="px-1 text-[10px] font-medium text-slate-400 dark:text-neutral-500">
+                            +{project.technologies.length - 4}
+                          </span>
+                        )}
+                      </div>
+
+                      <div className="mt-auto flex items-center justify-center gap-4 pt-4">
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onSelectProject(project);
+                          }}
+                          className="rounded-md border border-slate-300 bg-white px-4 py-1.5 text-xs font-bold text-slate-900 transition-colors hover:bg-slate-100 dark:border-white/20 dark:bg-white/10 dark:text-white dark:hover:bg-white/20 cursor-pointer"
+                        >
+                          View Details
+                        </button>
+                        {project.githubUrl && (
+                          <a
+                            href={project.githubUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                            aria-label={`${project.title} source code on GitHub`}
+                            className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-500 transition-colors hover:text-slate-900 dark:text-neutral-400 dark:hover:text-white"
+                          >
+                            <Github className="h-3.5 w-3.5" />
+                            Source
+                          </a>
+                        )}
+                      </div>
+                    </>
+                  )}
+                </div>
               </motion.div>
             </div>
           );

@@ -7,6 +7,7 @@ export const EducationSection: React.FC = () => {
   return (
     <GlassSection
       id="education"
+      ghostWord="EDUCATION"
       badge="Academic Foundation"
       title="Education & Engineering Degree"
       subtitle="Rigorous foundational coursework in Information Technology, Software Architectures, Algorithms, and Artificial Intelligence."

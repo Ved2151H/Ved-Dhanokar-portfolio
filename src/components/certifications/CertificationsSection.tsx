@@ -7,6 +7,7 @@ export const CertificationsSection: React.FC = () => {
   return (
     <GlassSection
       id="certifications"
+      ghostWord="CERTIFICATIONS"
       badge="Verified Credentials"
       title="Certifications & AI Specializations"
       subtitle="Industry and institutional accreditations validating machine learning foundations, prompt engineering, and cloud AI architecture."

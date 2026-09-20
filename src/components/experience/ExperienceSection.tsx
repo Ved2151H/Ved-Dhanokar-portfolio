@@ -3,16 +3,23 @@ import { experienceData } from '../../data/experience';
 import { GlowCard } from '../primitives/GlowCard';
 import { GlassPill } from '../primitives/GlassPill';
 import { GlassContainer } from '../primitives/GlassContainer';
+import { GhostWord } from '../primitives/GhostWord';
 
 export const ExperienceSection: React.FC = () => {
   return (
     <section id="experience" className="relative py-16 lg:py-24">
+      <GhostWord text="EXPERIENCE" />
       <GlassContainer size="lg">
-        <div className="mb-12">
-          <div className="flex items-center gap-2 mb-2.5">
-            <span className="w-5 h-[2px] bg-slate-900 dark:bg-white" />
-            <span className="text-xs font-mono tracking-widest text-slate-700 dark:text-neutral-300 uppercase font-semibold">
-              Work Experience
+        <div className="relative mb-12">
+          <div className="mb-6">
+            <span className="inline-flex items-center gap-2.5 rounded-full border border-slate-300/70 bg-white/60 px-4 py-1.5 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.05]">
+              <span aria-hidden className="relative flex size-2.5 items-center justify-center">
+                <span className="absolute inline-flex size-2.5 rounded-full border border-slate-500 dark:border-neutral-300" />
+                <span className="size-1 rounded-full bg-slate-600 dark:bg-neutral-200" />
+              </span>
+              <span className="text-xs font-semibold text-slate-700 dark:text-neutral-200">
+                Work Experience
+              </span>
             </span>
           </div>
           <h2 id="experience-title" className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white">
