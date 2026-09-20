@@ -43,11 +43,11 @@ export const GlassButton: React.FC<GlassButtonProps> = ({
   const getVariantStyles = () => {
     switch (variant) {
       case 'primary':
-        return 'bg-slate-900 text-white hover:bg-slate-700 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-100 border border-slate-900 dark:border-white active:opacity-80';
+        return 'bg-slate-900 text-white hover:bg-slate-700 dark:bg-white dark:text-slate-900 dark:hover:bg-neutral-200 border border-slate-900 dark:border-white active:bg-slate-800 dark:active:bg-neutral-300';
       case 'secondary':
-        return 'bg-white text-slate-800 hover:bg-slate-50 dark:bg-slate-800 dark:text-neutral-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700';
+        return 'bg-white text-slate-800 hover:bg-slate-100 dark:bg-slate-800 dark:text-neutral-100 dark:hover:bg-slate-700 border border-slate-300 dark:border-slate-600';
       case 'outline':
-        return 'bg-transparent text-slate-700 dark:text-neutral-300 hover:bg-slate-50 dark:hover:bg-slate-800 border border-slate-300 dark:border-slate-600';
+        return 'bg-transparent text-slate-700 dark:text-neutral-200 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-400 dark:border-slate-500';
       case 'ghost':
         return 'bg-transparent text-slate-700 dark:text-neutral-300 hover:bg-slate-100 dark:hover:bg-slate-800 border border-transparent';
       case 'glass':
@@ -56,7 +56,7 @@ export const GlassButton: React.FC<GlassButtonProps> = ({
     }
   };
 
-  const combinedClasses = `inline-flex items-center justify-center whitespace-nowrap select-none transition-colors duration-200 cursor-pointer ${getSizeStyles()} ${getVariantStyles()} ${className}`;
+  const combinedClasses = `inline-flex items-center justify-center whitespace-nowrap select-none transition-colors duration-200 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-500 dark:focus-visible:outline-neutral-300 ${getSizeStyles()} ${getVariantStyles()} ${className}`;
 
   if (asAnchor && href) {
     return (

@@ -6,7 +6,7 @@ import {
   useScroll,
   useMotionValueEvent,
 } from 'motion/react';
-import { Menu, Moon, Sun, X, Frame } from 'lucide-react';
+import { Menu, Moon, Sun, X } from 'lucide-react';
 import { cn } from '../../lib/utils';
 import { useTheme } from '../../context/ThemeContext';
 import { NAV_ITEMS } from '../../constants/navigation';
@@ -58,7 +58,7 @@ export const FloatingNavbar: React.FC<FloatingNavbarProps> = ({
       aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
       title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
       onClick={toggleTheme}
-      className="p-2 rounded-full border border-slate-200 bg-slate-100 text-slate-600 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-300 hover:bg-slate-200 dark:hover:bg-neutral-700 transition-colors duration-200 cursor-pointer"
+      className="p-2 rounded-full border border-slate-200 bg-slate-100 text-slate-700 hover:bg-slate-200 dark:border-neutral-600 dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-700 transition-colors duration-200 cursor-pointer shrink-0"
     >
       {isLight ? <Sun className="size-4" /> : <Moon className="size-4" />}
     </button>
@@ -74,11 +74,12 @@ export const FloatingNavbar: React.FC<FloatingNavbarProps> = ({
           activeHref={`#${activeSection}`}
           onItemClick={(item) => go(item.href.slice(1))}
         />
-        <div className="relative z-20 flex items-center gap-2">
+        <div className="relative z-20 flex shrink-0 items-center gap-3">
           {themeToggle}
           <NavbarButton
             id="floating-navbar-contact-cta"
             variant="primary"
+            className="cta-pulse-glow shrink-0"
             onClick={() => go('contact')}
           >
             Get in Touch
@@ -201,10 +202,6 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
   return (
     <motion.div
       animate={{
-        backdropFilter: visible ? 'blur(10px)' : 'none',
-        boxShadow: visible
-          ? '0 0 24px rgba(34, 42, 53, 0.06), 0 1px 1px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(34, 42, 53, 0.04), 0 0 4px rgba(34, 42, 53, 0.08), 0 16px 68px rgba(47, 48, 55, 0.05), 0 1px 0 rgba(255, 255, 255, 0.1) inset'
-          : 'none',
         width: visible ? '40%' : '100%',
         y: visible ? 20 : 0,
       }}
@@ -217,8 +214,7 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
         minWidth: '800px',
       }}
       className={cn(
-        'relative z-[60] mx-auto hidden w-full max-w-7xl flex-row items-center justify-between self-start rounded-full bg-transparent px-4 py-2 lg:flex',
-        visible && 'bg-white/80 dark:bg-neutral-950/80',
+        'relative z-[60] mx-auto hidden w-full max-w-7xl flex-row items-center justify-between self-start rounded-full border border-slate-200 bg-white px-4 py-2 shadow-sm lg:flex dark:border-neutral-800 dark:bg-[#0d0f14]',
         className,
       )}
     >
@@ -236,7 +232,7 @@ export const NavItems = ({ items, className, activeHref, onItemClick }: NavItems
     <motion.div
       onMouseLeave={() => setHovered(null)}
       className={cn(
-        'absolute inset-0 hidden flex-1 flex-row items-center justify-center space-x-1 text-sm font-medium lg:flex',
+        'absolute inset-0 hidden flex-1 flex-row items-center justify-center space-x-2 text-sm font-medium lg:flex',
         className,
       )}
     >
@@ -274,13 +270,7 @@ export const MobileNav = ({ children, className, visible }: MobileNavProps) => {
   return (
     <motion.div
       animate={{
-        backdropFilter: visible ? 'blur(10px)' : 'none',
-        boxShadow: visible
-          ? '0 0 24px rgba(34, 42, 53, 0.06), 0 1px 1px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(34, 42, 53, 0.04), 0 0 4px rgba(34, 42, 53, 0.08), 0 16px 68px rgba(47, 48, 55, 0.05), 0 1px 0 rgba(255, 255, 255, 0.1) inset'
-          : 'none',
         width: visible ? '90%' : '100%',
-        paddingRight: visible ? '12px' : '0px',
-        paddingLeft: visible ? '12px' : '0px',
         borderRadius: visible ? '4px' : '2rem',
         y: visible ? 20 : 0,
       }}
@@ -290,8 +280,7 @@ export const MobileNav = ({ children, className, visible }: MobileNavProps) => {
         damping: 50,
       }}
       className={cn(
-        'relative z-50 mx-auto flex w-full max-w-[calc(100vw-2rem)] flex-col items-center justify-between bg-transparent py-2 lg:hidden',
-        visible && 'bg-white/80 dark:bg-neutral-950/80',
+        'relative z-50 mx-auto flex w-full max-w-[calc(100vw-2rem)] flex-col items-center justify-between rounded-2xl border border-slate-200 bg-white px-3 py-2 shadow-sm lg:hidden dark:border-neutral-800 dark:bg-[#0d0f14]',
         className,
       )}
     >
@@ -360,7 +349,6 @@ export const NavbarLogo = ({ onSelect }: { onSelect: () => void }) => {
       aria-label="Ved Dhanokar - Return to top of portfolio"
       className="relative z-20 mr-4 flex items-center gap-2 px-2 py-1 text-sm"
     >
-      <Frame className="size-6 shrink-0 text-slate-900 dark:text-white" />
       <span className="flex min-w-0 flex-col leading-none">
         <span className="font-bold tracking-tight text-black dark:text-white">
           {profileData.displayName}
@@ -385,15 +373,13 @@ export const NavbarButton = ({
   ...props
 }: NavbarButtonProps) => {
   const baseStyles =
-    'px-4 py-2 rounded-md text-sm font-bold relative cursor-pointer hover:-translate-y-0.5 transition duration-200 inline-block text-center';
+    'px-4 py-2 rounded-md text-sm font-bold relative cursor-pointer hover:-translate-y-0.5 transition duration-200 inline-block text-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-500 dark:focus-visible:outline-neutral-300 disabled:opacity-60';
 
   const variantStyles = {
-    primary:
-      'bg-white text-black shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]',
-    secondary: 'bg-transparent shadow-none text-black dark:text-white',
-    dark: 'bg-black text-white shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]',
-    gradient:
-      'bg-gradient-to-b from-blue-500 to-blue-700 text-white shadow-[0px_2px_0px_0px_rgba(255,255,255,0.3)_inset]',
+    primary: 'bg-white text-slate-900 border border-slate-300 hover:bg-slate-100 dark:bg-white dark:text-slate-900 dark:border-white dark:hover:bg-neutral-200',
+    secondary: 'bg-transparent shadow-none text-slate-900 dark:text-white border border-slate-300 dark:border-neutral-600 hover:bg-slate-100 dark:hover:bg-neutral-800',
+    dark: 'bg-slate-900 text-white border border-slate-900 hover:bg-slate-700 dark:bg-white dark:text-slate-900 dark:border-white dark:hover:bg-neutral-200',
+    gradient: 'bg-sky-600 text-white border border-sky-700 hover:bg-sky-700',
   };
 
   return (

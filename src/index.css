@@ -190,20 +190,10 @@
 .glass-material-secondary { background: var(--glass-surface-bg);  border: 1px solid var(--glass-surface-border);  box-shadow: var(--glass-surface-shadow); }
 .glass-material-tertiary  { background: var(--glass-float-bg);    border: 1px solid var(--glass-float-border); }
 
-/* LIGHT MODE TEXT / COLOR FIXES */
-html.light * {
-  --tw-text-opacity: 1 !important;
-}
-
-html.light .text-white,
-html.light .text-neutral-50,
-html.light .text-slate-50,
-html.light .text-neutral-100,
-html.light .text-slate-100,
-html.light .text-slate-800,
-html.light .text-slate-900 {
-  color: #0F172A !important;
-}
+/* LIGHT MODE TEXT / COLOR FIXES
+   NOTE: .text-white is intentionally NOT overridden — buttons that use
+   white text always sit on dark backgrounds (bg-slate-900, bg-sky-600),
+   and forcing it dark made primary button labels invisible in light mode. */
 
 html.light .text-neutral-200,
 html.light .text-slate-200,
@@ -262,6 +252,30 @@ html.light .glass-card-glow        { background: var(--glass-surface-bg); border
 .ambient-glow-cyan   {}
 .ambient-glow-purple {}
 .ambient-glow-blue   {}
+
+/* ── PRIMARY CTA PULSE GLOW (navbar "Get in Touch") ────────────────── */
+:root,
+:root[data-theme='dark'] {
+  --cta-glow-color: rgba(59, 130, 246, 0.45);
+}
+
+:root[data-theme='light'] {
+  --cta-glow-color: rgba(37, 99, 235, 0.35);
+}
+
+@keyframes cta-pulse-glow {
+  0%   { box-shadow: 0 0 0 0 var(--cta-glow-color); }
+  70%  { box-shadow: 0 0 0 12px rgba(59, 130, 246, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+}
+
+.cta-pulse-glow:hover {
+  animation: cta-pulse-glow 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cta-pulse-glow:hover { animation: none; }
+}
 
 /* CUSTOM SCROLLBAR */
 ::-webkit-scrollbar       { width: 8px; }
